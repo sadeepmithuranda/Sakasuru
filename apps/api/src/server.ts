@@ -13,9 +13,12 @@ async function main() {
   const { db, pool } = createDb(config.DATABASE_URL, config.DATABASE_SSL);
   await seedContent(db);
   // Bootstrap the first super administrator from environment variables, if provided.
-  if (process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD) {
-    if (process.env.ADMIN_PASSWORD.length < 12) throw new Error("ADMIN_PASSWORD must be at least 12 characters");
-    await seedAdmin(db, process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD);
+  // A bad admin setting must never stop the whole site from starting, so it only logs a warning.
+  const adminEmail = process.env.ADMIN_EMAIL?.trim();
+  const adminPassword = process.env.ADMIN_PASSWORD ?? "";
+  if (adminEmail && adminPassword) {
+    if (adminPassword.length < 12) console.warn("ADMIN_PASSWORD must be at least 12 characters — admin account not created.");
+    else await seedAdmin(db, adminEmail, adminPassword).catch((err) => console.warn("Admin account not created:", err));
   }
   const app = await buildApp({
     config,
