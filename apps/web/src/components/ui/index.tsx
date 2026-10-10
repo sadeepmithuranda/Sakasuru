@@ -22,6 +22,26 @@ export function Button({ variant = "primary", size = "md", loading, className, c
   );
 }
 
+/** Destructive action with an in-page second tap instead of window.confirm(). */
+export function ConfirmButton({ onConfirm, label, confirmLabel, className, iconOnly, children }: { onConfirm: () => void; label: string; confirmLabel: string; className?: string; iconOnly?: boolean; children?: ReactNode }) {
+  const [armed, setArmed] = useState(false);
+  useEffect(() => {
+    if (!armed) return;
+    const t = setTimeout(() => setArmed(false), 4000);
+    return () => clearTimeout(t);
+  }, [armed]);
+  return (
+    <button
+      type="button"
+      onClick={() => (armed ? (setArmed(false), onConfirm()) : setArmed(true))}
+      aria-label={armed ? confirmLabel : label}
+      className={cx("inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors", armed ? "bg-alert-500 px-3 text-white" : "", className)}
+    >
+      {armed ? <span className="whitespace-nowrap text-sm">{confirmLabel}</span> : iconOnly ? children : <>{children} {label}</>}
+    </button>
+  );
+}
+
 /* ---------------------------------- Fields ---------------------------------- */
 export function Field({ label, hint, error, children, htmlFor }: { label: string; hint?: string; error?: string | null; children: ReactNode; htmlFor?: string }) {
   return (

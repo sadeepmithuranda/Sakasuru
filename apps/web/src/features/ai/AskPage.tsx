@@ -26,6 +26,7 @@ export function AskPage() {
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [listening, setListening] = useState(false);
+  const [voiceError, setVoiceError] = useState<string | null>(null);
   const rec = useRef<SpeechRec | null>(null);
   const end = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -53,13 +54,14 @@ export function AskPage() {
 
   const SR = (window as unknown as { SpeechRecognition?: new () => SpeechRec; webkitSpeechRecognition?: new () => SpeechRec }).SpeechRecognition ?? (window as unknown as { webkitSpeechRecognition?: new () => SpeechRec }).webkitSpeechRecognition;
   const toggleVoice = () => {
-    if (!SR) return alert(t("ai.voiceUnsupported"));
+    if (!SR) return setVoiceError(t("ai.voiceUnsupported"));
     if (listening) return rec.current?.stop();
     const r = new SR();
     r.lang = lang === "si" ? "si-LK" : lang === "ta" ? "ta-LK" : "en-LK";
     r.interimResults = false;
     r.onresult = (e) => setInput((prev) => (prev ? prev + " " : "") + (e.results[0]?.[0]?.transcript ?? ""));
     r.onend = () => setListening(false);
+    (r as unknown as { onerror: () => void }).onerror = () => (setListening(false), setVoiceError(t("ai.voiceUnsupported")));
     rec.current = r;
     setListening(true);
     r.start();
@@ -162,6 +164,7 @@ export function AskPage() {
         <div ref={end} />
       </div>
 
+      {voiceError && <p className="mt-4 text-center text-sm text-muted" role="status">{voiceError}</p>}
       <form onSubmit={submit} className="sticky bottom-20 mt-6 flex items-center gap-2 rounded-full border border-line bg-white p-1.5 shadow-[var(--shadow-lift)] lg:bottom-6">
         <button type="button" onClick={toggleVoice} className={cx("grid size-11 shrink-0 place-items-center rounded-full", listening ? "bg-alert-50 text-alert-500" : "text-muted hover:bg-surface")} aria-label={listening ? t("ai.listening") : t("ai.voice")} aria-pressed={listening}>
           <Mic className="size-5" />

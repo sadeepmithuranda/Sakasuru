@@ -9,7 +9,7 @@ import { api } from "@/lib/api-context";
 import { useI18n } from "@/lib/i18n";
 import { useDashboard, useMoneyMutation, useRecurring, useTransactions } from "@/lib/queries";
 import { todayIso, cx } from "@/lib/util";
-import { Button, Card, EmptyState, ErrorState, MoneyInput, PageHeader, ProgressBar, Section, SelectInput, Sheet, Skeleton, Tabs, TextInput, useToast, Segmented } from "@/components/ui";
+import { Button, Card, ConfirmButton, EmptyState, ErrorState, MoneyInput, PageHeader, ProgressBar, Section, SelectInput, Sheet, Skeleton, Tabs, TextInput, useToast, Segmented } from "@/components/ui";
 import { TransactionRow, GROUP_COLORS } from "@/features/home/HomePage";
 import { useQuickAdd } from "@/components/layout/AppShell";
 import { BudgetTab } from "./BudgetTab";
@@ -258,17 +258,17 @@ function EditTransactionSheet({ tx, onClose }: { tx: TransactionDTO | null; onCl
             <Segmented label={t("expense.needWant")} value={needWant} onChange={setNeedWant} options={[{ value: "need", label: t("needWant.need") }, { value: "want", label: t("needWant.want") }]} />
           )}
           <div className="flex gap-3">
-            <Button
-              variant="danger"
-              className="flex-1"
-              onClick={async () => {
-                if (!confirm(t("common.confirmDelete"))) return;
+            <ConfirmButton
+              className="h-11 flex-1 border border-alert-500/30 bg-alert-50 px-4 text-alert-500"
+              label={t("common.delete")}
+              confirmLabel={t("common.confirmDelete")}
+              onConfirm={async () => {
                 await remove.mutateAsync(tx.id);
                 onClose();
               }}
             >
-              <Trash2 className="size-4" /> {t("common.delete")}
-            </Button>
+              <Trash2 className="size-4" />
+            </ConfirmButton>
             <Button
               className="flex-[2]"
               loading={update.isPending}

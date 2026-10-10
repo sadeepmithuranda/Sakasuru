@@ -23,13 +23,14 @@ export function ReportTab() {
     // Shares progress without exposing amounts.
     const text = `${t("report.title")} — ${month(m)}\n${t("report.savingsRate")}: ${r?.savingsRate ?? 0}%\n${t("report.lessons")}: ${r?.lessonsCompleted ?? 0}\n${t("report.scoreChange")}: ${r?.healthScore ?? "—"}`;
     try {
-      if (navigator.share) await navigator.share({ text });
-      else {
+      await navigator.share({ text });
+    } catch {
+      try {
         await navigator.clipboard.writeText(text);
         toast(t("common.saved"));
+      } catch {
+        /* sharing unavailable in this browser */
       }
-    } catch {
-      /* user cancelled */
     }
   };
   return (

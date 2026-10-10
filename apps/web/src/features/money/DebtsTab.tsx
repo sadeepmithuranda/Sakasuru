@@ -7,7 +7,7 @@ import { api } from "@/lib/api-context";
 import { useI18n } from "@/lib/i18n";
 import { useDashboard, useDebts, useMoneyMutation } from "@/lib/queries";
 import { monthsLabel } from "@/lib/format";
-import { Button, EmptyState, MoneyInput, Section, Segmented, SelectInput, Sheet, Skeleton, TextInput, useToast } from "@/components/ui";
+import { Button, ConfirmButton, EmptyState, MoneyInput, Section, Segmented, SelectInput, Sheet, Skeleton, TextInput, useToast } from "@/components/ui";
 import { cx } from "@/lib/util";
 
 export function DebtsTab() {
@@ -51,9 +51,9 @@ export function DebtsTab() {
                     </p>
                   </div>
                   <p className="figure text-lg font-bold">{money(x.balance)}</p>
-                  <button onClick={() => confirm(t("common.confirmDelete")) && remove.mutate(x.id)} className="grid size-9 place-items-center rounded-full text-muted hover:bg-alert-50 hover:text-alert-500" aria-label={t("common.delete")}>
+                  <ConfirmButton iconOnly onConfirm={() => remove.mutate(x.id)} label={t("common.delete")} confirmLabel={t("common.delete") + "?"} className="h-9 min-w-9 text-muted hover:bg-alert-50 hover:text-alert-500">
                     <Trash2 className="size-4" />
-                  </button>
+                  </ConfirmButton>
                 </div>
                 {x.payoffMonths === null ? (
                   <p className="mt-3 rounded-xl bg-alert-50 p-3 text-sm font-medium text-alert-500">{t("debts.neverPays")}</p>

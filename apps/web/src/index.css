@@ -29,7 +29,7 @@
   --color-amber-50: #fff6e6;
   --color-amber-600: #b45309;
 
-  --font-sans: "Anek Latin Variable", "Yaldevi", "Anek Tamil Variable", "Noto Sans Sinhala", "Noto Sans Tamil", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Anek Latin Variable", "Anek Latin", "Yaldevi", "Anek Tamil Variable", "Anek Tamil", "Noto Sans Sinhala", "Noto Sans Tamil", ui-sans-serif, system-ui, sans-serif;
 
   --radius-panel: 28px;
   --radius-card: 18px;
