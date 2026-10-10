@@ -42,6 +42,8 @@ export async function buildApp(ctx: AppContext) {
     crossOriginResourcePolicy: { policy: "same-site" },
   });
   const origins = ctx.config.CORS_ORIGINS.split(",").map((o) => o.trim()).filter(Boolean);
+  // On Render the public URL may get a random suffix; always allow it.
+  if (process.env.RENDER_EXTERNAL_URL) origins.push(process.env.RENDER_EXTERNAL_URL.replace(/\/$/, ""));
   await app.register(cors, { origin: origins, credentials: true, methods: ["GET", "POST", "PATCH", "PUT", "DELETE"] });
   await app.register(cookie);
   await app.register(rateLimit, { global: true, max: ctx.config.RATE_LIMIT_MAX, timeWindow: "1 minute" });

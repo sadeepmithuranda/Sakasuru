@@ -1,17 +1,22 @@
 # Render Blueprint — one web service (API + web app) and a managed PostgreSQL.
 # Dashboard → New → Blueprint → select this repository.
+# Both use Render's free plans. Free Postgres expires 30 days after creation
+# unless upgraded; free web services sleep after 15 minutes idle.
 databases:
   - name: sakasuru-db
     databaseName: sakasuru
     user: sakasuru
     plan: free
+    region: singapore
 
 services:
   - type: web
     name: sakasuru
     runtime: node
     plan: free
-    buildCommand: corepack enable && pnpm install --frozen-lockfile && VITE_API_URL=/ pnpm build
+    region: singapore
+    # --prod=false: NODE_ENV=production would otherwise skip the build tools (TypeScript, Vite).
+    buildCommand: corepack enable && pnpm install --frozen-lockfile --prod=false && VITE_API_URL=/ pnpm build
     startCommand: node apps/api/dist/server.js
     healthCheckPath: /health
     envVars:
@@ -29,6 +34,7 @@ services:
         generateValue: true
       - key: WEB_DIST_DIR
         value: apps/web/dist
+      # The service's own onrender.com URL is added automatically (RENDER_EXTERNAL_URL).
       - key: CORS_ORIGINS
         value: https://sakasuru.onrender.com
       - key: ADMIN_EMAIL
