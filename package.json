@@ -1,0 +1,17 @@
+{
+  "name": "sakasuru",
+  "private": true,
+  "version": "0.1.0",
+  "description": "සකසුරු — Sri Lankan financial literacy & personal finance platform",
+  "packageManager": "pnpm@9.15.0",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "pnpm -r --filter \"./packages/**\" build && pnpm --filter @sakasuru/api build && pnpm --filter @sakasuru/web build",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "dev:api": "pnpm --filter @sakasuru/api dev",
+    "dev:web": "pnpm --filter @sakasuru/web dev",
+    "db:migrate": "pnpm --filter @sakasuru/api db:migrate",
+    "db:seed": "pnpm --filter @sakasuru/api db:seed"
+  }
+}

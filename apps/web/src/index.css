@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/*
+ * සකසුරු design tokens
+ * Tea-estate green carries trust; saffron (පිරිත් නූල් / kolam turmeric) is reserved
+ * for achievement moments. Lagoon blue marks learning. Surfaces are cool, not cream.
+ */
+@theme {
+  --color-ink: #13261d;
+  --color-ink-soft: #3f5449;
+  --color-muted: #6b7d73;
+  --color-line: #dbe5df;
+  --color-surface: #f5f8f5;
+  --color-card: #ffffff;
+  --color-leaf-50: #e8f4ee;
+  --color-leaf-100: #cfe9dc;
+  --color-leaf-300: #7bc4a4;
+  --color-leaf-500: #13895f;
+  --color-leaf-600: #0e6b4f;
+  --color-leaf-800: #0a4634;
+  --color-saffron-100: #fdf1c9;
+  --color-saffron-400: #f2b705;
+  --color-saffron-700: #8a6400;
+  --color-lagoon-50: #eaf1fb;
+  --color-lagoon-500: #2e5fa8;
+  --color-lagoon-700: #1f4272;
+  --color-alert-50: #fdeceb;
+  --color-alert-500: #b42318;
+  --color-amber-50: #fff6e6;
+  --color-amber-600: #b45309;
+
+  --font-sans: "Anek Latin Variable", "Yaldevi", "Anek Tamil Variable", "Noto Sans Sinhala", "Noto Sans Tamil", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-panel: 28px;
+  --radius-card: 18px;
+  --radius-field: 12px;
+
+  --shadow-lift: 0 1px 2px rgb(19 38 29 / 0.06), 0 8px 24px -12px rgb(19 38 29 / 0.18);
+}
+
+:root {
+  --text-scale: 1;
+  color-scheme: light;
+}
+
+html {
+  font-size: calc(16px * var(--text-scale));
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 0;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* Sinhala and Tamil scripts need more vertical room for vowel signs. */
+:lang(si),
+:lang(si-LK) {
+  line-height: 1.7;
+}
+:lang(ta),
+:lang(ta-LK) {
+  line-height: 1.65;
+}
+
+/* Large money figures: semi-condensed Anek with tabular numerals. */
+.figure {
+  font-variation-settings: "wdth" 88;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.figure-xl {
+  font-variation-settings: "wdth" 80;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-lagoon-500);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.high-contrast {
+  --color-muted: #2f3f37;
+  --color-ink-soft: #13261d;
+  --color-line: #8aa196;
+}
+
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Woven border inspired by Dumbara mat patterns — used once, on the welcome screen. */
+.dumbara {
+  background-image: repeating-linear-gradient(45deg, var(--color-leaf-600) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(-45deg, var(--color-saffron-400) 0 6px, transparent 6px 12px);
+  background-size: 17px 17px;
+}
+
+input[type="range"] {
+  accent-color: var(--color-leaf-600);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+/* Grid items shouldn't grow past their track because of long Sinhala/Tamil words. */
+.grid > * {
+  min-width: 0;
+}
