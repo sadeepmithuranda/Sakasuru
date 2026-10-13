@@ -12,6 +12,10 @@ import { I18nProvider } from "@/lib/i18n";
 import { AppProviders } from "@/lib/api-context";
 import { ToastProvider } from "@/components/ui";
 import { App } from "@/app/App";
+import { applyTheme } from "@/lib/theme";
+
+// theme-init.js normally does this before first paint; repeat in case it was not loaded.
+applyTheme();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

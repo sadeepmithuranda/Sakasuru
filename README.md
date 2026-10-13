@@ -13,6 +13,10 @@ A financial-literacy and personal-finance platform built for Sri Lanka — in **
 |---|---|---|---|
 | ![](docs/screenshots/home-mobile-si.png) | ![](docs/screenshots/lesson-mobile-si.png) | ![](docs/screenshots/learn-mobile-ta.png) | ![](docs/screenshots/ask-mobile-en.png) |
 
+**Dark mode**
+
+![Dashboard in dark mode](docs/screenshots/dashboard-desktop-dark.png)
+
 ## What's inside
 
 - **Money** — 5-second quick add, needs vs wants, LANKAQR and other payment methods, recurring bills with reminders, CSV import (never bank passwords), monthly budgets, savings goals, emergency-fund planner, debt manager with snowball/avalanche and "pay Rs. X extra" simulator, monthly report.
@@ -23,7 +27,7 @@ A financial-literacy and personal-finance platform built for Sri Lanka — in **
 - **Ask සකසුරු** — answers from a verified, sourced knowledge base; says when it doesn't know; refuses product recommendations; personal insights only with consent and only the data needed.
 - **Admin** — aggregated analytics, CMS with draft → review → approved → published, seven RBAC roles, audit log.
 - **Privacy & security** — Argon2id, rotating refresh tokens with reuse detection, AES-256-GCM field encryption, consent log, data export, account deletion, rate limits, CSP.
-- **Built for Sri Lankan phones** — installable PWA, offline lessons and calculators, self-hosted fonts (Yaldevi, Anek Tamil, Anek Latin), data-saver mode, text sizing, high contrast.
+- **Built for Sri Lankan phones** — installable PWA, offline lessons and calculators, self-hosted fonts (Yaldevi, Anek Tamil, Anek Latin), data-saver mode, text sizing, high contrast, and light / dark / follow-device themes.
 
 ## Stack
 

@@ -46,7 +46,7 @@ export function BudgetTab() {
           ["budget.plannedSavings", money(summary.plannedSavings)],
           ["budget.savingsRate", `${summary.savingsRate}%`],
         ].map(([k, v]) => (
-          <div key={k} className="bg-white p-4">
+          <div key={k} className="bg-card p-4">
             <dt className="text-sm text-muted">{t(k!)}</dt>
             <dd className="figure mt-1 text-xl font-bold">{v}</dd>
           </div>
@@ -54,7 +54,7 @@ export function BudgetTab() {
       </dl>
       <ul className="mt-6 flex flex-col gap-4">
         {progress.map((p) => (
-          <li key={p.categoryKey} className="rounded-[var(--radius-card)] border border-line bg-white p-4">
+          <li key={p.categoryKey} className="rounded-[var(--radius-card)] border border-line bg-card p-4">
             <div className="flex items-center gap-3">
               <span className="text-2xl" aria-hidden>
                 {icon(p.categoryKey)}
@@ -104,7 +104,7 @@ function BudgetEditor({ month, onDone }: { month: string; onDone: () => void }) 
           ))}
         </div>
       </div>
-      <aside className="h-fit rounded-[var(--radius-card)] border border-line bg-white p-5 lg:sticky lg:top-20">
+      <aside className="h-fit rounded-[var(--radius-card)] border border-line bg-card p-5 lg:sticky lg:top-20">
         <dl className="flex flex-col gap-3">
           {[
             ["budget.totalIncome", summary.totalIncome],

@@ -17,13 +17,13 @@ import { cx } from "@/lib/util";
 const GROUP_COLORS: Record<string, string> = {
   food: "#13895F",
   transport: "#2E5FA8",
-  housing: "#0A4634",
+  housing: "var(--color-leaf-800)",
   utilities: "#F2B705",
   education: "#6B46C1",
   healthcare: "#B42318",
   entertainment: "#D53F8C",
   shopping: "#ED8936",
-  loans: "#4A5568",
+  loans: "var(--color-ink-soft)",
   insurance: "#2C7A7B",
   subscriptions: "#B83280",
   family: "#7BC4A4",
@@ -135,14 +135,14 @@ export function HomePage() {
                 <p className="mt-1 inline-flex rounded-full bg-white/15 px-3 py-1 text-sm font-semibold">{t("home.scoreChange", { change: `${change > 0 ? "+" : ""}${change}` })}</p>
               )}
               <p className="mt-3 text-white/90">{t(`health.bandMessages.${d.health.band}`)}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-saffron-100 group-hover:underline">
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#FDF1C9] group-hover:underline">
                 {t("health.howCalculated")} <ChevronRight className="size-4" />
               </span>
             </div>
           </Link>
 
           {/* Income / spending / savings strip */}
-          <dl className="grid grid-cols-2 overflow-hidden rounded-[var(--radius-card)] border border-line bg-white sm:grid-cols-4">
+          <dl className="grid grid-cols-2 overflow-hidden rounded-[var(--radius-card)] border border-line bg-card sm:grid-cols-4">
             {[
               { k: "home.income", v: d.income, c: "text-ink" },
               { k: "home.spent", v: d.spent, c: "text-ink" },
@@ -165,12 +165,12 @@ export function HomePage() {
             </Button>
           </div>
 
-          <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+          <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
             <h2 className="mb-4 text-lg font-bold">{t("home.whereMoneyWent")}</h2>
             <SpendingDonut d={d} />
           </section>
 
-          <section className="hidden rounded-[var(--radius-card)] border border-line bg-white p-5 lg:block">
+          <section className="hidden rounded-[var(--radius-card)] border border-line bg-card p-5 lg:block">
             <RecentTransactions d={d} />
           </section>
         </div>
@@ -186,7 +186,7 @@ export function HomePage() {
             </div>
           )}
 
-          <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+          <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
             <div className="flex items-baseline justify-between">
               <h2 className="text-lg font-bold">{t("home.budget")}</h2>
               <Link to="/money?tab=budget" className="text-sm font-semibold text-leaf-800">
@@ -216,7 +216,7 @@ export function HomePage() {
             )}
           </section>
 
-          <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+          <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
             <div className="flex items-baseline justify-between">
               <h2 className="text-lg font-bold">{t("home.savingsGoals")}</h2>
               <Link to="/goals" className="text-sm font-semibold text-leaf-800">
@@ -250,7 +250,7 @@ export function HomePage() {
 
           {nextLesson && (
             <Link to={`/learn/lesson/${nextLesson.slug}`} className="flex items-center gap-4 rounded-[var(--radius-card)] bg-lagoon-50 p-5">
-              <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white text-2xl" aria-hidden>
+              <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-card text-2xl" aria-hidden>
                 {nextLesson.course.icon}
               </span>
               <span className="min-w-0 flex-1">
@@ -265,7 +265,7 @@ export function HomePage() {
             </Link>
           )}
 
-          <Link to="/achievements" className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+          <Link to="/achievements" className="rounded-[var(--radius-card)] border border-line bg-card p-5">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold">{t("home.weeklyChallenge")}</h2>
               {learning && learning.streak > 0 && (
@@ -287,7 +287,7 @@ export function HomePage() {
             )}
           </Link>
 
-          <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+          <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
             <h2 className="text-lg font-bold">{t("home.upcomingBills")}</h2>
             {d.upcomingBills.length ? (
               <ul className="mt-2 divide-y divide-line">
@@ -309,7 +309,7 @@ export function HomePage() {
             )}
           </section>
 
-          <section className="rounded-[var(--radius-card)] border border-line bg-white p-5 lg:hidden">
+          <section className="rounded-[var(--radius-card)] border border-line bg-card p-5 lg:hidden">
             <RecentTransactions d={d} />
           </section>
         </div>

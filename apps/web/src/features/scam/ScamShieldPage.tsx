@@ -42,7 +42,7 @@ export function ScamShieldPage() {
     <div>
       <PageHeader title={t("scam.title")} subtitle={t("scam.subtitle")} />
       <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
-        <section className="rounded-[var(--radius-panel)] border border-line bg-white p-5 sm:p-6">
+        <section className="rounded-[var(--radius-panel)] border border-line bg-card p-5 sm:p-6">
           <h2 className="text-xl font-bold">{t("scam.checker")}</h2>
           <p className="mt-1 text-muted">{t("scam.checkerSubtitle")}</p>
           <label className="sr-only" htmlFor="scam-text">
@@ -64,7 +64,7 @@ export function ScamShieldPage() {
                   <p className="mt-4 font-semibold text-ink">{t("scam.signalsFound")}</p>
                   <ul className="mt-2 flex flex-col gap-2">
                     {result.signals.map((s) => (
-                      <li key={s.key} className="rounded-xl bg-white/70 p-3 text-ink">
+                      <li key={s.key} className="rounded-xl bg-card/80 p-3 text-ink">
                         <span className="font-semibold">🚩 {t(`scam.signals.${s.key}`)}</span>
                         <span className="mt-0.5 block text-sm text-muted">“{s.match}”</span>
                       </li>
@@ -79,15 +79,15 @@ export function ScamShieldPage() {
         </section>
 
         <div className="flex flex-col gap-6">
-          <section className="rounded-[var(--radius-panel)] bg-lagoon-700 p-5 text-white sm:p-6">
+          <section className="rounded-[var(--radius-panel)] bg-lagoon-deep p-5 text-white sm:p-6">
             <h2 className="text-xl font-bold">{t("scam.quizTitle")}</h2>
             <blockquote className="mt-4 rounded-2xl bg-white/10 p-4 text-lg leading-relaxed">{pick(ex.message)}</blockquote>
             {guess === null ? (
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <button onClick={() => (setGuess(true), ex.isScam && setScore((s) => s + 1))} className="rounded-full bg-white py-3 font-bold text-alert-500">
+                <button onClick={() => (setGuess(true), ex.isScam && setScore((s) => s + 1))} className="rounded-full bg-card py-3 font-bold text-alert-500">
                   🚩 {t("scam.isScam")}
                 </button>
-                <button onClick={() => (setGuess(false), !ex.isScam && setScore((s) => s + 1))} className="rounded-full bg-white py-3 font-bold text-leaf-800">
+                <button onClick={() => (setGuess(false), !ex.isScam && setScore((s) => s + 1))} className="rounded-full bg-card py-3 font-bold text-leaf-800">
                   ✓ {t("scam.isSafe")}
                 </button>
               </div>
@@ -105,7 +105,7 @@ export function ScamShieldPage() {
             </p>
           </section>
 
-          <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+          <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
             <h2 className="text-lg font-bold">{t("scam.redFlags")}</h2>
             <ul className="mt-3 flex flex-col gap-2">
               {["guaranteed", "otp", "urgent", "unlock", "zeroRisk"].map((k) => (
@@ -122,7 +122,7 @@ export function ScamShieldPage() {
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {protection.map((l) => (
             <li key={l.slug}>
-              <Link to={`/learn/lesson/${l.slug}`} className="flex h-full items-center gap-3 rounded-[var(--radius-card)] border border-line bg-white p-4 hover:border-leaf-300">
+              <Link to={`/learn/lesson/${l.slug}`} className="flex h-full items-center gap-3 rounded-[var(--radius-card)] border border-line bg-card p-4 hover:border-leaf-300">
                 <ShieldCheck className={cx("size-7 shrink-0", learning?.completed[l.slug] ? "text-leaf-600" : "text-muted")} />
                 <span className="font-semibold">{pick(l.title)}</span>
               </Link>

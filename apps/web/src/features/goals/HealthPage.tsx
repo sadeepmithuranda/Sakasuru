@@ -22,7 +22,7 @@ export function HealthPage() {
     <div>
       <PageHeader title={t("health.title")} />
       <div className="grid items-start gap-6 lg:grid-cols-[320px_1fr]">
-        <div className="flex flex-col items-center rounded-[var(--radius-panel)] bg-white p-6 text-center shadow-[var(--shadow-lift)]">
+        <div className="flex flex-col items-center rounded-[var(--radius-panel)] bg-card p-6 text-center shadow-[var(--shadow-lift)]">
           <PetalScore score={h.score} band={h.band} factors={h.factors} size={240} />
           <p className="mt-3 text-2xl font-bold text-leaf-800">{t(`health.bands.${h.band}`)}</p>
           <p className="mt-2 text-ink-soft">{t(`health.bandMessages.${h.band}`)}</p>
@@ -45,7 +45,7 @@ export function HealthPage() {
 
         <div>
           <h2 className="text-lg font-bold">{t("health.howCalculated")}</h2>
-          <ul className="mt-3 divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white">
+          <ul className="mt-3 divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card">
             {h.factors.map((f) => (
               <li key={f.key} className="p-4">
                 <div className="flex items-center justify-between gap-3">
@@ -82,14 +82,14 @@ export function HealthPage() {
 
           {history && history.length > 1 && (
             <Section title={t("health.history")}>
-              <div className="h-56 rounded-[var(--radius-card)] border border-line bg-white p-3">
+              <div className="h-56 rounded-[var(--radius-card)] border border-line bg-card p-3">
                 <ResponsiveContainer>
                   <LineChart data={history.map((p) => ({ ...p, label: month(p.month).split(" ")[0] }))}>
-                    <CartesianGrid stroke="#E3EEE8" vertical={false} />
+                    <CartesianGrid stroke="var(--color-track)" vertical={false} />
                     <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
                     <YAxis domain={[0, 100]} tickLine={false} axisLine={false} fontSize={12} width={28} />
                     <Tooltip />
-                    <Line type="monotone" dataKey="score" stroke="#0E6B4F" strokeWidth={3} dot={{ r: 4, fill: "#0E6B4F" }} />
+                    <Line type="monotone" dataKey="score" stroke="var(--color-leaf-600)" strokeWidth={3} dot={{ r: 4, fill: "var(--color-leaf-600)" }} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>

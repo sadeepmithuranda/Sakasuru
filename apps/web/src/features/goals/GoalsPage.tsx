@@ -16,7 +16,7 @@ function GoalCard({ g, onContribute }: { g: GoalDTO; onContribute: () => void })
   const { t, money, date } = useI18n();
   const update = useMoneyMutation(({ id, status }: { id: string; status: GoalDTO["status"] }) => api.updateGoal(id, { status }));
   return (
-    <li className={cx("rounded-[var(--radius-card)] border border-line bg-white p-5", g.status === "paused" && "opacity-75")}>
+    <li className={cx("rounded-[var(--radius-card)] border border-line bg-card p-5", g.status === "paused" && "opacity-75")}>
       <div className="flex items-start gap-3">
         <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-leaf-50 text-2xl" aria-hidden>
           {GOAL_ICON[g.type] ?? "🎯"}
@@ -78,7 +78,7 @@ export function GoalsPage() {
   return (
     <div>
       <PageHeader title={t("goals.title")} action={<Button onClick={() => setCreating(true)}><Plus className="size-5" /> {t("goals.create")}</Button>} />
-      <Link to="/goals/emergency" className="flex items-center gap-4 rounded-[var(--radius-panel)] bg-leaf-800 p-5 text-white">
+      <Link to="/goals/emergency" className="flex items-center gap-4 rounded-[var(--radius-panel)] bg-forest p-5 text-white">
         <ShieldCheck className="size-9 text-saffron-400" />
         <span className="flex-1">
           <span className="block text-lg font-bold">{t("emergency.title")}</span>
@@ -110,7 +110,7 @@ export function GoalsPage() {
             ) : null,
           )}
           <Section title={t("goals.debtGoals")}>
-            <Link to="/money?tab=debts" className="flex items-center justify-between rounded-[var(--radius-card)] border border-line bg-white p-4 font-semibold">
+            <Link to="/money?tab=debts" className="flex items-center justify-between rounded-[var(--radius-card)] border border-line bg-card p-4 font-semibold">
               {t("simulator.title")} <ChevronRight className="size-5" />
             </Link>
           </Section>
@@ -170,7 +170,7 @@ function ContributeSheet({ goal, onClose }: { goal: GoalDTO | null; onClose: () 
         <MoneyInput label={t("goals.contributionAmount")} value={amount} onChange={setAmount} big autoFocus />
         <div className="flex gap-2">
           {[500, 1000, 2500, 5000].map((v) => (
-            <button key={v} onClick={() => setAmount(String(v))} className="flex-1 rounded-full border border-line bg-white py-2 text-sm font-semibold hover:border-leaf-300">
+            <button key={v} onClick={() => setAmount(String(v))} className="flex-1 rounded-full border border-line bg-card py-2 text-sm font-semibold hover:border-leaf-300">
               {v.toLocaleString("en-US")}
             </button>
           ))}
@@ -213,7 +213,7 @@ export function EmergencyFundPage() {
           <Segmented label={t("emergency.months")} value={months} onChange={setMonths} options={(["1", "3", "6", "12"] as const).map((m) => ({ value: m, label: m === "1" ? t("emergency.oneMonth") : t("emergency.monthsOption", { n: m }) }))} />
         </div>
         {r && (
-          <section className="rounded-[var(--radius-panel)] bg-white p-6 shadow-[var(--shadow-lift)]">
+          <section className="rounded-[var(--radius-panel)] bg-card p-6 shadow-[var(--shadow-lift)]">
             <dl className="grid grid-cols-3 gap-3">
               <div>
                 <dt className="text-sm text-muted">{t("emergency.recommended")}</dt>
@@ -236,9 +236,9 @@ export function EmergencyFundPage() {
                     <path d="M10 34c0-5 4-9 9-9h42c5 0 9 4 9 9v8c0 22-13 40-30 40S10 64 10 42z" />
                   </clipPath>
                 </defs>
-                <path d="M10 34c0-5 4-9 9-9h42c5 0 9 4 9 9v8c0 22-13 40-30 40S10 64 10 42z" fill="#E8F4EE" />
-                <rect x="0" y={82 - (57 * r.progressPercent) / 100} width="80" height="90" fill="#13895F" clipPath="url(#pot)" />
-                <rect x="24" y="12" width="32" height="13" rx="6" fill="#0E6B4F" />
+                <path d="M10 34c0-5 4-9 9-9h42c5 0 9 4 9 9v8c0 22-13 40-30 40S10 64 10 42z" fill="var(--color-leaf-50)" />
+                <rect x="0" y={82 - (57 * r.progressPercent) / 100} width="80" height="90" fill="var(--color-leaf-500)" clipPath="url(#pot)" />
+                <rect x="24" y="12" width="32" height="13" rx="6" fill="var(--color-leaf-600)" />
               </svg>
               <div className="flex-1">
                 <p className="figure text-4xl font-bold">{r.progressPercent}%</p>

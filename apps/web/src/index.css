@@ -28,6 +28,15 @@
   --color-alert-500: #b42318;
   --color-amber-50: #fff6e6;
   --color-amber-600: #b45309;
+  /* Panels that stay deep in both themes (white text on top) */
+  --color-forest: #0a4634;
+  --color-lagoon-deep: #1f4272;
+  --color-danger: #b42318;
+  /* Inverse chips (toasts, active admin tab) */
+  --color-inverse: #13261d;
+  --color-on-inverse: #ffffff;
+  /* Empty tracks: chart grid lines, unfilled score petals */
+  --color-track: #e3eee8;
 
   --font-sans: "Anek Latin Variable", "Anek Latin", "Yaldevi", "Anek Tamil Variable", "Anek Tamil", "Noto Sans Sinhala", "Noto Sans Tamil", ui-sans-serif, system-ui, sans-serif;
 
@@ -56,6 +65,67 @@ body {
   font-feature-settings: "tnum" 0;
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
+}
+
+/*
+ * Dark theme — night-time tea estate: deep green-black surfaces, tints become
+ * low-light washes and their text becomes the light shade. Applied by the "dark"
+ * class on <html> (see lib/theme.ts and public/theme-init.js).
+ */
+.dark {
+  color-scheme: dark;
+  --color-ink: #e4eee8;
+  --color-ink-soft: #bccbc3;
+  --color-muted: #93a89e;
+  --color-line: #2a3b34;
+  --color-surface: #0b1310;
+  --color-card: #131d19;
+  --color-leaf-50: #12291f;
+  --color-leaf-100: #1b3b2e;
+  --color-leaf-300: #2f6b55;
+  --color-leaf-500: #2fae7d;
+  --color-leaf-600: #16865f;
+  --color-leaf-700: #7fd3ad;
+  --color-leaf-800: #9be0bf;
+  --color-saffron-100: #2e2608;
+  --color-saffron-700: #f2c94c;
+  --color-lagoon-50: #13213a;
+  --color-lagoon-500: #6d9be0;
+  --color-lagoon-700: #a9c6f0;
+  --color-alert-50: #35150f;
+  --color-alert-500: #ff8a7f;
+  --color-amber-50: #2e2008;
+  --color-amber-600: #f5b454;
+  --color-forest: #0f3b2c;
+  --color-lagoon-deep: #1b3557;
+  --color-danger: #c4321f;
+  --color-inverse: #e4eee8;
+  --color-on-inverse: #0b1310;
+  --color-track: #22332b;
+  --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 28px -12px rgb(0 0 0 / 0.7);
+}
+/* Green text needs the brighter shade on dark surfaces to stay readable. */
+.dark .text-leaf-600 {
+  color: var(--color-leaf-500);
+}
+.dark.high-contrast {
+  --color-muted: #c9d6cf;
+  --color-ink-soft: #e4eee8;
+  --color-line: #55705f;
+}
+
+/* Recharts: axis labels and tooltips follow the theme. */
+.recharts-cartesian-axis-tick-value {
+  fill: var(--color-muted);
+}
+.recharts-default-tooltip {
+  background: var(--color-card) !important;
+  border-color: var(--color-line) !important;
+  border-radius: 12px;
+  color: var(--color-ink);
+}
+.recharts-tooltip-item {
+  color: var(--color-ink) !important;
 }
 
 /* Sinhala and Tamil scripts need more vertical room for vowel signs. */
@@ -133,4 +203,9 @@ input[type="range"] {
 /* Grid items shouldn't grow past their track because of long Sinhala/Tamil words. */
 .grid > * {
   min-width: 0;
+}
+
+/* Pie slices are separated by the card colour, not hard white. */
+.recharts-sector {
+  stroke: var(--color-card);
 }

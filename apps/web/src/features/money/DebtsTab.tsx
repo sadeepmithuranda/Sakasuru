@@ -20,15 +20,15 @@ export function DebtsTab() {
   return (
     <div>
       <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line">
-        <div className="bg-white p-4">
+        <div className="bg-card p-4">
           <dt className="text-sm text-muted">{t("debts.totalDebt")}</dt>
           <dd className="figure mt-1 text-xl font-bold">{money(d?.debtTotals.total ?? 0)}</dd>
         </div>
-        <div className="bg-white p-4">
+        <div className="bg-card p-4">
           <dt className="text-sm text-muted">{t("debts.monthlyPayments")}</dt>
           <dd className="figure mt-1 text-xl font-bold">{money(d?.debtTotals.monthly ?? 0)}</dd>
         </div>
-        <div className="bg-white p-4">
+        <div className="bg-card p-4">
           <dt className="text-sm text-muted" title={t("debts.dtiHint")}>
             {t("debts.dti")}
           </dt>
@@ -41,7 +41,7 @@ export function DebtsTab() {
         {debts?.length ? (
           <ul className="flex flex-col gap-3">
             {debts.map((x) => (
-              <li key={x.id} className="rounded-[var(--radius-card)] border border-line bg-white p-4">
+              <li key={x.id} className="rounded-[var(--radius-card)] border border-line bg-card p-4">
                 <div className="flex items-start gap-3">
                   <div className="flex-1">
                     <p className="font-bold">{x.lender || t(`debts.types.${x.type}`)}</p>
@@ -100,7 +100,7 @@ function Simulator() {
   const s = sim?.[strategy];
   const base = sim ? sim.perDebt.reduce((a, p) => Math.max(a, p.current.months ?? 0), 0) : 0;
   return (
-    <section className="mt-8 rounded-[var(--radius-panel)] border border-line bg-white p-5 sm:p-6">
+    <section className="mt-8 rounded-[var(--radius-panel)] border border-line bg-card p-5 sm:p-6">
       <h2 className="text-xl font-bold">{t("simulator.title")}</h2>
       <div className="mt-4">
         <Segmented

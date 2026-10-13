@@ -93,7 +93,7 @@ export function AddTransactionSheet({ open, onClose, type: initialType }: { open
                 type="button"
                 onClick={() => setCategory(k)}
                 aria-pressed={category === k}
-                className={cx("flex min-h-[76px] flex-col items-center justify-center gap-1 rounded-2xl border px-1 py-2 text-center text-xs font-semibold leading-tight", category === k ? "border-leaf-500 bg-leaf-50 text-leaf-800" : "border-line bg-white")}
+                className={cx("flex min-h-[76px] flex-col items-center justify-center gap-1 rounded-2xl border px-1 py-2 text-center text-xs font-semibold leading-tight", category === k ? "border-leaf-500 bg-leaf-50 text-leaf-800" : "border-line bg-card")}
               >
                 <span className="text-2xl" aria-hidden>
                   {icon(k)}

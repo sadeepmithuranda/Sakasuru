@@ -28,7 +28,7 @@ export function AdminLayout() {
       <PageHeader title={t("admin.title")} subtitle={t(`admin.roles.${me.user.role}`)} />
       <nav className="scrollbar-none -mx-4 mb-6 flex gap-2 overflow-x-auto px-4" aria-label={t("admin.title")}>
         {tabs.map((x) => (
-          <NavLink key={x.to} to={x.to} end={x.end} className={({ isActive }) => cx("whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold", isActive ? "bg-ink text-white" : "bg-white text-ink-soft border border-line")}>
+          <NavLink key={x.to} to={x.to} end={x.end} className={({ isActive }) => cx("whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold", isActive ? "bg-inverse text-on-inverse" : "bg-card text-ink-soft border border-line")}>
             {x.label}
           </NavLink>
         ))}
@@ -63,28 +63,28 @@ export function AdminDashboard() {
           ["budgets", s.budgets],
           ["goals", s.goals],
         ].map(([k, v]) => (
-          <div key={k as string} className="bg-white p-4">
+          <div key={k as string} className="bg-card p-4">
             <dt className="text-sm text-muted">{t(`admin.stats.${k}`)}</dt>
             <dd className="figure mt-1 text-2xl font-bold">{v}</dd>
           </div>
         ))}
       </dl>
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+        <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
           <h2 className="font-bold">{t("admin.stats.users")}</h2>
           <div className="mt-3 h-52">
             <ResponsiveContainer>
               <BarChart data={s.signupsByDay}>
-                <CartesianGrid stroke="#E3EEE8" vertical={false} />
+                <CartesianGrid stroke="var(--color-track)" vertical={false} />
                 <XAxis dataKey="day" tickFormatter={(d) => String(d).slice(5)} fontSize={11} tickLine={false} axisLine={false} />
                 <YAxis allowDecimals={false} fontSize={11} width={24} tickLine={false} axisLine={false} />
                 <Tooltip />
-                <Bar dataKey="count" fill="#13895F" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="count" fill="var(--color-leaf-500)" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </section>
-        <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+        <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
           <h2 className="font-bold">{t("admin.languageSplit")}</h2>
           <ul className="mt-4 flex flex-col gap-3">
             {s.languages.map((l) => (
@@ -100,7 +100,7 @@ export function AdminDashboard() {
             ))}
           </ul>
         </section>
-        <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+        <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
           <h2 className="font-bold">{t("admin.hardestLessons")}</h2>
           <ol className="mt-3 flex flex-col gap-2 text-sm">
             {s.hardestLessons.length ? s.hardestLessons.map((h) => (
@@ -111,7 +111,7 @@ export function AdminDashboard() {
             )) : <li className="text-muted">—</li>}
           </ol>
         </section>
-        <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+        <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
           <h2 className="font-bold">{t("admin.topQuestions")}</h2>
           <ol className="mt-3 flex flex-col gap-2 text-sm">
             {s.topAiTopics.length ? s.topAiTopics.map((x) => (
@@ -140,7 +140,7 @@ export function AdminContent() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2">
           {(["all", "draft", "review", "approved", "published", "archived"] as const).map((s) => (
-            <button key={s} onClick={() => setFilter(s)} className={cx("rounded-full px-3 py-1.5 text-sm font-semibold", filter === s ? "bg-leaf-600 text-white" : "border border-line bg-white")}>
+            <button key={s} onClick={() => setFilter(s)} className={cx("rounded-full px-3 py-1.5 text-sm font-semibold", filter === s ? "bg-leaf-600 text-white" : "border border-line bg-card")}>
               {s === "all" ? t("money.filters.all") : t(`admin.status.${s}`)}
             </button>
           ))}
@@ -149,7 +149,7 @@ export function AdminContent() {
           <Plus className="size-4" /> {t("admin.newLesson")}
         </Link>
       </div>
-      <div className="mt-4 overflow-x-auto rounded-[var(--radius-card)] border border-line bg-white">
+      <div className="mt-4 overflow-x-auto rounded-[var(--radius-card)] border border-line bg-card">
         <table className="w-full min-w-[640px] text-sm">
           <thead className="bg-surface text-left text-muted">
             <tr>
@@ -208,9 +208,9 @@ function LField({ label, value, onChange, multiline }: { label: string; value: L
       <div className="grid gap-2 md:grid-cols-3">
         {(["si", "ta", "en"] as const).map((lng) =>
           multiline ? (
-            <textarea key={lng} aria-label={`${label} (${lng})`} placeholder={lng.toUpperCase()} value={value[lng]} onChange={(e) => onChange({ ...value, [lng]: e.target.value })} rows={3} className="rounded-xl border border-line bg-white p-2.5 text-sm focus:border-leaf-500 focus:outline-none" />
+            <textarea key={lng} aria-label={`${label} (${lng})`} placeholder={lng.toUpperCase()} value={value[lng]} onChange={(e) => onChange({ ...value, [lng]: e.target.value })} rows={3} className="rounded-xl border border-line bg-card p-2.5 text-sm focus:border-leaf-500 focus:outline-none" />
           ) : (
-            <input key={lng} aria-label={`${label} (${lng})`} placeholder={lng.toUpperCase()} value={value[lng]} onChange={(e) => onChange({ ...value, [lng]: e.target.value })} className="h-10 rounded-xl border border-line bg-white px-2.5 text-sm focus:border-leaf-500 focus:outline-none" />
+            <input key={lng} aria-label={`${label} (${lng})`} placeholder={lng.toUpperCase()} value={value[lng]} onChange={(e) => onChange({ ...value, [lng]: e.target.value })} className="h-10 rounded-xl border border-line bg-card px-2.5 text-sm focus:border-leaf-500 focus:outline-none" />
           ),
         )}
       </div>
@@ -289,10 +289,10 @@ export function AdminLessonEditor() {
 
       <h3 className="text-lg font-bold">Cards</h3>
       {l.cards.map((c, i) => (
-        <div key={i} className="rounded-[var(--radius-card)] border border-line bg-white p-4">
+        <div key={i} className="rounded-[var(--radius-card)] border border-line bg-card p-4">
           <div className="mb-3 flex items-center gap-3">
             <span className="font-bold">{i + 1}</span>
-            <select value={c.type} onChange={(e) => patchCard(i, { type: e.target.value as never })} className="h-9 rounded-lg border border-line bg-white px-2 text-sm">
+            <select value={c.type} onChange={(e) => patchCard(i, { type: e.target.value as never })} className="h-9 rounded-lg border border-line bg-card px-2 text-sm">
               {["story", "concept", "example", "tip", "warning"].map((x) => (
                 <option key={x}>{x}</option>
               ))}
@@ -313,7 +313,7 @@ export function AdminLessonEditor() {
 
       <h3 className="text-lg font-bold">{t("learn.quizTitle")}</h3>
       {l.quiz.map((q, i) => (
-        <div key={q.id} className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-line bg-white p-4">
+        <div key={q.id} className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-line bg-card p-4">
           <p className="font-bold">{t("learn.question", { n: i + 1, total: l.quiz.length })}</p>
           <LField label="Prompt" value={q.prompt} onChange={(v) => patchQ(i, { prompt: v })} />
           {q.options.map((o, k) => (
@@ -348,7 +348,7 @@ export function AdminLessonEditor() {
       <TextInput label={t("admin.nextReview")} type="date" value={l.nextReview ?? ""} onChange={(e) => setL({ ...l, nextReview: e.target.value || undefined })} />
 
       {error && <p className="text-sm text-alert-500">{error}</p>}
-      <div className="sticky bottom-20 flex flex-wrap gap-2 rounded-[var(--radius-card)] border border-line bg-white p-3 shadow-[var(--shadow-lift)] lg:bottom-4">
+      <div className="sticky bottom-20 flex flex-wrap gap-2 rounded-[var(--radius-card)] border border-line bg-card p-3 shadow-[var(--shadow-lift)] lg:bottom-4">
         <Button onClick={() => save.mutate()} loading={save.isPending} disabled={!/^[a-z0-9-]{3,60}$/.test(l.slug) || !l.title.en}>
           {t("common.save")}
         </Button>
@@ -377,7 +377,7 @@ export function AdminUsers() {
   return (
     <div>
       <TextInput label={t("common.search")} value={q} onChange={(e) => setQ(e.target.value)} type="search" />
-      <div className="mt-4 overflow-x-auto rounded-[var(--radius-card)] border border-line bg-white">
+      <div className="mt-4 overflow-x-auto rounded-[var(--radius-card)] border border-line bg-card">
         <table className="w-full min-w-[560px] text-sm">
           <thead className="bg-surface text-left text-muted">
             <tr>
@@ -401,7 +401,7 @@ export function AdminUsers() {
                     value={u.role}
                     disabled={u.id === me?.user.id || RANK[u.role as RoleName] >= myRank}
                     onChange={(e) => set.mutate({ id: u.id, role: e.target.value })}
-                    className="h-9 rounded-lg border border-line bg-white px-2 disabled:opacity-60"
+                    className="h-9 rounded-lg border border-line bg-card px-2 disabled:opacity-60"
                     aria-label={`${t("admin.role")} ${u.email}`}
                   >
                     {(Object.keys(RANK) as RoleName[]).map((r) => (
@@ -424,7 +424,7 @@ export function AdminAudit() {
   const { date } = useI18n();
   const { data } = useQuery({ queryKey: ["admin-audit"], queryFn: () => api.adminAuditLogs() });
   return (
-    <div className="overflow-x-auto rounded-[var(--radius-card)] border border-line bg-white">
+    <div className="overflow-x-auto rounded-[var(--radius-card)] border border-line bg-card">
       <table className="w-full min-w-[560px] text-sm">
         <thead className="bg-surface text-left text-muted">
           <tr>

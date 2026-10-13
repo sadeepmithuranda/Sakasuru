@@ -94,7 +94,7 @@ export function LanguagePage() {
             role="radio"
             aria-checked={lang === l.code}
             onClick={() => setLang(l.code)}
-            className={cx("flex items-center justify-between rounded-[var(--radius-card)] border-2 p-5 text-left transition-colors", lang === l.code ? "border-leaf-500 bg-leaf-50" : "border-line bg-white hover:border-leaf-300")}
+            className={cx("flex items-center justify-between rounded-[var(--radius-card)] border-2 p-5 text-left transition-colors", lang === l.code ? "border-leaf-500 bg-leaf-50" : "border-line bg-card hover:border-leaf-300")}
           >
             <span>
               <span className="block text-2xl font-bold">{l.native}</span>

@@ -102,7 +102,7 @@ export function AskPage() {
         {msgs.length === 0 && (
           <div className="flex flex-wrap gap-2">
             {suggestions.map((s) => (
-              <button key={s} onClick={() => ask(t(`ai.suggestions.${s}`))} className="rounded-full border border-line bg-white px-4 py-2.5 text-left text-sm font-medium hover:border-leaf-300">
+              <button key={s} onClick={() => ask(t(`ai.suggestions.${s}`))} className="rounded-full border border-line bg-card px-4 py-2.5 text-left text-sm font-medium hover:border-leaf-300">
                 {t(`ai.suggestions.${s}`)}
               </button>
             ))}
@@ -118,7 +118,7 @@ export function AskPage() {
               <span className="mt-1 shrink-0">
                 <LogoMark size={30} />
               </span>
-              <div className={cx("rounded-[22px] rounded-tl-md border px-4 py-3", m.answer?.mode === "low-confidence" ? "border-amber-600/30 bg-amber-50" : "border-line bg-white")}>
+              <div className={cx("rounded-[22px] rounded-tl-md border px-4 py-3", m.answer?.mode === "low-confidence" ? "border-amber-600/30 bg-amber-50" : "border-line bg-card")}>
                 <p className="whitespace-pre-line leading-relaxed">{m.content}</p>
                 {m.answer && m.answer.usedFields.length > 0 && <p className="mt-2 text-xs text-muted">{t("ai.usingYourData", { fields: m.answer.usedFields.join(", ") })}</p>}
                 {m.answer && m.answer.sources.length > 0 && (
@@ -155,7 +155,7 @@ export function AskPage() {
           ),
         )}
         {busy && (
-          <div className="flex gap-1.5 self-start rounded-full bg-white px-4 py-3" aria-label={t("common.loading")}>
+          <div className="flex gap-1.5 self-start rounded-full bg-card px-4 py-3" aria-label={t("common.loading")}>
             {[0, 1, 2].map((d) => (
               <span key={d} className="size-2 animate-bounce rounded-full bg-leaf-300" style={{ animationDelay: `${d * 120}ms` }} />
             ))}
@@ -165,7 +165,7 @@ export function AskPage() {
       </div>
 
       {voiceError && <p className="mt-4 text-center text-sm text-muted" role="status">{voiceError}</p>}
-      <form onSubmit={submit} className="sticky bottom-20 mt-6 flex items-center gap-2 rounded-full border border-line bg-white p-1.5 shadow-[var(--shadow-lift)] lg:bottom-6">
+      <form onSubmit={submit} className="sticky bottom-20 mt-6 flex items-center gap-2 rounded-full border border-line bg-card p-1.5 shadow-[var(--shadow-lift)] lg:bottom-6">
         <button type="button" onClick={toggleVoice} className={cx("grid size-11 shrink-0 place-items-center rounded-full", listening ? "bg-alert-50 text-alert-500" : "text-muted hover:bg-surface")} aria-label={listening ? t("ai.listening") : t("ai.voice")} aria-pressed={listening}>
           <Mic className="size-5" />
         </button>

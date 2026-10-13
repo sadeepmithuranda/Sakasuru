@@ -19,7 +19,7 @@ export function AchievementsPage() {
     <div>
       <PageHeader title={t("learn.achievements")} />
       <div className="grid grid-cols-3 gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line">
-        <div className="bg-white p-4">
+        <div className="bg-card p-4">
           <p className="text-sm text-muted">{t("learn.levelLabel", { n: "" }).trim()}</p>
           <p className="figure text-3xl font-bold">{l.level}</p>
           <div className="mt-2">
@@ -27,11 +27,11 @@ export function AchievementsPage() {
           </div>
           <p className="mt-1 text-xs text-muted">{t("learn.nextLevel", { n: l.nextLevelXp - l.currentLevelXp })}</p>
         </div>
-        <div className="bg-white p-4">
+        <div className="bg-card p-4">
           <p className="text-sm text-muted">XP</p>
           <p className="figure text-3xl font-bold">{l.xp}</p>
         </div>
-        <div className="bg-white p-4">
+        <div className="bg-card p-4">
           <p className="flex items-center gap-1 text-sm text-muted">
             <Flame className="size-4 text-saffron-400" /> {t("learn.streakDays")}
           </p>
@@ -45,7 +45,7 @@ export function AchievementsPage() {
             const p = l.challenges.find((x) => x.key === c.key);
             const daysLeft = p ? Math.max(0, c.durationDays - Math.floor((Date.now() - new Date(p.joinedAt).getTime()) / 86_400_000)) : c.durationDays;
             return (
-              <li key={c.key} className={cx("rounded-[var(--radius-card)] border bg-white p-4", p?.completed ? "border-saffron-400" : "border-line")}>
+              <li key={c.key} className={cx("rounded-[var(--radius-card)] border bg-card p-4", p?.completed ? "border-saffron-400" : "border-line")}>
                 <div className="flex items-start gap-3">
                   <span className="text-3xl" aria-hidden>
                     {c.icon}
@@ -88,7 +88,7 @@ export function AchievementsPage() {
           {BADGES.map((b) => {
             const at = earned.get(b.key);
             return (
-              <li key={b.key} className={cx("flex flex-col items-center rounded-[var(--radius-card)] p-4 text-center", at ? "bg-saffron-100" : "border border-dashed border-line bg-white")}>
+              <li key={b.key} className={cx("flex flex-col items-center rounded-[var(--radius-card)] p-4 text-center", at ? "bg-saffron-100" : "border border-dashed border-line bg-card")}>
                 <span className={cx("text-4xl", !at && "opacity-30 grayscale")} aria-hidden>
                   {b.icon}
                 </span>

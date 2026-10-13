@@ -7,8 +7,8 @@ import { useI18n } from "@/lib/i18n";
  * with a two-leaf sprout growing from the coin slot.
  */
 export function LogoMark({ size = 40, inverted = false }: { size?: number; inverted?: boolean }) {
-  const pot = inverted ? "#F5F8F5" : "#0E6B4F";
-  const slot = inverted ? "#0E6B4F" : "#F5F8F5";
+  const pot = inverted ? "#F5F8F5" : "var(--color-leaf-600)";
+  const slot = inverted ? "#0E6B4F" : "var(--color-surface)";
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden>
       <path d="M8 24c0-3.3 2.7-6 6-6h20c3.3 0 6 2.7 6 6v4c0 8.8-7.2 16-16 16S8 36.8 8 28z" fill={pot} />
@@ -52,8 +52,8 @@ export function PetalScore({ score, band, factors, size = 196, onDark = false }:
     const p = (rad: number, a: number) => `${c + rad * Math.cos(a)},${c + rad * Math.sin(a)}`;
     return `M${p(inner, a0)} L${p(r, a0)} A${r},${r} 0 0 1 ${p(r, a1)} L${p(inner, a1)} A${inner},${inner} 0 0 0 ${p(inner, a0)} Z`;
   };
-  const ghost = onDark ? "rgba(255,255,255,0.14)" : "#E3EEE8";
-  const fills = onDark ? ["#F2B705", "#FFFFFF"] : ["#0E6B4F", "#13895F"];
+  const ghost = onDark ? "rgba(255,255,255,0.14)" : "var(--color-track)";
+  const fills = onDark ? ["#F2B705", "#FFFFFF"] : ["var(--color-leaf-600)", "var(--color-leaf-500)"];
   return (
     <figure className="relative" style={{ width: size, height: size }} aria-label={`${t("health.title")}: ${score} / 100, ${t(`health.bands.${band}`)}`}>
       <svg viewBox="0 0 200 200" width={size} height={size} role="img">

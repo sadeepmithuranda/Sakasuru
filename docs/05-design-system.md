@@ -22,6 +22,16 @@
 
 Meaning is never carried by colour alone: statuses always have text labels, risk results have icons and words.
 
+### Dark mode
+
+A "night-time tea estate" palette: deep green-black surfaces (`surface #0B1310`, `card #131D19`), light text (`ink #E4EEE8`), tinted panels become low-light washes and their text uses the light shade (e.g. `leaf-800 → #9BE0BF`). Every token is redefined under the `.dark` class on `<html>` in `apps/web/src/index.css`, so components use the same class names in both themes.
+
+- **Switching:** sun/moon button in the top bar (also on login and welcome screens) and Profile → Appearance: Light / Dark / Device. The choice is saved per device; "Device" follows the phone or computer setting live.
+- **No flash:** `public/theme-init.js` applies the theme before the app loads (an external file so it works under the strict Content-Security-Policy).
+- **Fixed panels:** `forest`, `lagoon-deep` and `danger` stay deep in both themes because they carry white text; `inverse` / `on-inverse` are used for toasts.
+- **Charts and illustrations** use CSS variables (`var(--color-…)`, `--color-track` for grids and empty petals), so they follow the theme automatically.
+- Contrast was checked for every text/background pair: body text 6.8–15:1, white on buttons ≥ 4.5:1.
+
 ## Type
 
 Self-hosted (offline, no third-party requests):

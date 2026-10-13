@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { NavLink, Outlet, useLocation, Link } from "react-router-dom";
-import { Home, GraduationCap, Wallet, Target, User, Plus, Sparkles, Bell, Calculator, ShieldCheck, LayoutDashboard, Trophy, WifiOff, Languages } from "lucide-react";
+import { Home, GraduationCap, Wallet, Target, User, Plus, Sparkles, Bell, Calculator, ShieldCheck, LayoutDashboard, Trophy, WifiOff, Languages, Moon, Sun } from "lucide-react";
 import { LANGUAGES, type Lang } from "@sakasuru/localization";
 import { useI18n } from "@/lib/i18n";
 import { api, useSession } from "@/lib/api-context";
 import { useNotifications } from "@/lib/queries";
 import { cx } from "@/lib/util";
+import { useTheme } from "@/lib/theme";
 import { Logo } from "@/components/brand";
 import { AddTransactionSheet } from "@/features/money/AddTransactionSheet";
 
@@ -23,7 +24,7 @@ function LanguageSwitch({ compact }: { compact?: boolean }) {
     }
   };
   return (
-    <label className={cx("relative inline-flex items-center gap-1.5 rounded-full border border-line bg-white text-sm font-semibold", compact ? "h-10 px-3" : "h-10 px-3.5")}>
+    <label className={cx("relative inline-flex items-center gap-1.5 rounded-full border border-line bg-card text-sm font-semibold", compact ? "h-10 px-3" : "h-10 px-3.5")}>
       <Languages className="size-4 text-leaf-600" aria-hidden />
       <span className="sr-only">{t("profile.language")}</span>
       <select value={lang} onChange={(e) => change(e.target.value as Lang)} className="cursor-pointer appearance-none bg-transparent pr-1 focus:outline-none">
@@ -37,12 +38,24 @@ function LanguageSwitch({ compact }: { compact?: boolean }) {
   );
 }
 
+/** One-tap light/dark switch; "follow device" lives in Profile → Appearance. */
+function ThemeButton() {
+  const { t } = useI18n();
+  const { resolved, toggle } = useTheme();
+  const label = t(resolved === "dark" ? "profile.toLight" : "profile.toDark");
+  return (
+    <button type="button" onClick={toggle} className="grid size-10 place-items-center rounded-full border border-line bg-card text-ink-soft hover:text-ink" aria-label={label} title={label}>
+      {resolved === "dark" ? <Sun className="size-5" /> : <Moon className="size-5" />}
+    </button>
+  );
+}
+
 function BellLink() {
   const { t } = useI18n();
   const { data } = useNotifications();
   const unread = data?.filter((n) => !n.read).length ?? 0;
   return (
-    <Link to="/notifications" className="relative grid size-10 place-items-center rounded-full border border-line bg-white" aria-label={`${t("nav.notifications")}${unread ? ` (${unread})` : ""}`}>
+    <Link to="/notifications" className="relative grid size-10 place-items-center rounded-full border border-line bg-card" aria-label={`${t("nav.notifications")}${unread ? ` (${unread})` : ""}`}>
       <Bell className="size-5" />
       {unread > 0 && <span className="absolute -right-0.5 -top-0.5 grid min-w-5 place-items-center rounded-full bg-saffron-400 px-1 text-[11px] font-bold text-ink">{unread}</span>}
     </Link>
@@ -95,16 +108,16 @@ export function AppShell() {
 
   return (
     <QuickAddCtx.Provider value={openAdd}>
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2">
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-card focus:px-4 focus:py-2">
         {t("app.skipToContent")}
       </a>
       <div className="min-h-screen lg:grid lg:grid-cols-[264px_1fr]">
         {/* Desktop sidebar */}
-        <aside className="sticky top-0 hidden h-screen flex-col border-r border-line bg-white px-4 py-6 lg:flex">
+        <aside className="sticky top-0 hidden h-screen flex-col border-r border-line bg-card px-4 py-6 lg:flex">
           <Link to="/" className="px-2">
             <Logo />
           </Link>
-          <button onClick={() => openAdd()} className="mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-leaf-600 font-semibold text-white hover:bg-leaf-800">
+          <button onClick={() => openAdd()} className="mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-leaf-600 font-semibold text-white hover:bg-forest">
             <Plus className="size-5" /> {t("nav.addExpense")}
           </button>
           <nav className="mt-6 flex flex-1 flex-col gap-0.5 overflow-y-auto" aria-label="Main">
@@ -120,7 +133,7 @@ export function AppShell() {
 
         <div className="min-w-0 overflow-x-clip">
           {api.mode === "local" && (
-            <div className="bg-lagoon-700 px-4 py-2 text-center text-sm text-white">
+            <div className="bg-lagoon-deep px-4 py-2 text-center text-sm text-white">
               {t("app.demoBanner")}
             </div>
           )}
@@ -136,6 +149,7 @@ export function AppShell() {
             </Link>
             <div className="flex items-center gap-2">
               <LanguageSwitch compact />
+              <ThemeButton />
               <BellLink />
             </div>
           </header>
@@ -149,14 +163,14 @@ export function AppShell() {
       {!onAsk && (
         <Link
           to="/ask"
-          className="fixed bottom-24 right-4 z-30 flex h-12 items-center gap-2 rounded-full border border-lagoon-500/20 bg-white pl-3.5 pr-4 font-semibold text-lagoon-700 shadow-[var(--shadow-lift)] lg:hidden"
+          className="fixed bottom-24 right-4 z-30 flex h-12 items-center gap-2 rounded-full border border-lagoon-500/20 bg-card pl-3.5 pr-4 font-semibold text-lagoon-700 shadow-[var(--shadow-lift)] lg:hidden"
         >
           <Sparkles className="size-5 text-saffron-400" aria-hidden /> {t("nav.ask")}
         </Link>
       )}
 
       {/* Mobile bottom navigation */}
-      <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white lg:hidden" aria-label="Main">
+      <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-line bg-card lg:hidden" aria-label="Main">
         <div className="mx-auto grid max-w-lg grid-cols-6 items-end px-1">
           {bottom.map((n, i) =>
             n ? (
@@ -189,7 +203,10 @@ export function AuthLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col">
       <header className="flex items-center justify-between px-5 py-4">
         <Logo size={32} />
-        <LanguageSwitch compact />
+        <div className="flex items-center gap-2">
+          <LanguageSwitch compact />
+          <ThemeButton />
+        </div>
       </header>
       <main id="main" className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-10">
         {children}

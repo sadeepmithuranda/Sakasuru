@@ -37,7 +37,7 @@ export function ReportTab() {
     <div>
       <div className="scrollbar-none -mx-4 flex gap-2 overflow-x-auto px-4">
         {months.map((x) => (
-          <button key={x} onClick={() => setM(x)} className={cx("whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold", x === m ? "border-leaf-600 bg-leaf-600 text-white" : "border-line bg-white")}>
+          <button key={x} onClick={() => setM(x)} className={cx("whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold", x === m ? "border-leaf-600 bg-leaf-600 text-white" : "border-line bg-card")}>
             {month(x)}
           </button>
         ))}
@@ -47,8 +47,8 @@ export function ReportTab() {
       ) : r.income === 0 && r.expenses === 0 ? (
         <p className="mt-6 text-muted">{t("report.noData")}</p>
       ) : (
-        <article className="mt-6 overflow-hidden rounded-[var(--radius-panel)] border border-line bg-white">
-          <header className="bg-leaf-800 p-6 text-white">
+        <article className="mt-6 overflow-hidden rounded-[var(--radius-panel)] border border-line bg-card">
+          <header className="bg-forest p-6 text-white">
             <p className="text-sm text-white/70">{month(r.month)}</p>
             <h2 className="mt-1 text-2xl font-bold">{t("report.title")}</h2>
             <div className="mt-5 flex items-end gap-3">
@@ -73,12 +73,12 @@ export function ReportTab() {
               ["report.scoreChange", r.healthScore === null ? "—" : r.healthScorePrev === null ? String(r.healthScore) : `${r.healthScorePrev} → ${r.healthScore}`],
               ["report.lessons", String(r.lessonsCompleted)],
             ].map(([k, v]) => (
-              <div key={k} className="bg-white p-4">
+              <div key={k} className="bg-card p-4">
                 <dt className="text-sm text-muted">{t(k!)}</dt>
                 <dd className="figure mt-1 text-lg font-bold">{v}</dd>
               </div>
             ))}
-            <div className="bg-white p-4">
+            <div className="col-span-2 bg-card p-4 sm:col-span-1">
               <dt className="text-sm text-muted">{t("report.achievements")}</dt>
               <dd className="mt-1 text-lg">{r.badges.length ? r.badges.map((b) => <span key={b} title={badgeByKey(b) ? pick(badgeByKey(b)!.title) : b}>{badgeByKey(b)?.icon}</span>) : "—"}</dd>
             </div>

@@ -11,6 +11,7 @@ import { useNotifications } from "@/lib/queries";
 import { renderNotification, badgeByKey } from "@/lib/format";
 import { downloadJson } from "@/lib/util";
 import { Button, EmptyState, PageHeader, Section, Segmented, SelectInput, TextInput, Toggle, useToast } from "@/components/ui";
+import { useTheme, THEME_CHOICES } from "@/lib/theme";
 import { cx } from "@/lib/util";
 
 function Row({ to, icon: Icon, label }: { to: string; icon: typeof Shield; label: string }) {
@@ -24,6 +25,7 @@ function Row({ to, icon: Icon, label }: { to: string; icon: typeof Shield; label
 }
 
 export function ProfilePage() {
+  const theme = useTheme();
   const { t, setLang, lang } = useI18n();
   const { me, setMe } = useSession();
   const nav = useNavigate();
@@ -44,7 +46,7 @@ export function ProfilePage() {
       <PageHeader title={t("profile.title")} subtitle={me.user.email} />
 
       <Section title={t("profile.personal")} className="mt-0">
-        <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-line bg-white p-5">
+        <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-line bg-card p-5">
           <div className="flex items-end gap-3">
             <div className="flex-1">
               <TextInput label={t("auth.name")} value={name} onChange={(e) => setName(e.target.value)} maxLength={60} />
@@ -77,7 +79,12 @@ export function ProfilePage() {
       </Section>
 
       <Section title={t("profile.financial")}>
-        <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-5">
+        <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-5">
+          <div className="py-3">
+            <p className="mb-2 font-semibold">{t("profile.appearance")}</p>
+            <Segmented label={t("profile.appearance")} value={theme.choice} onChange={theme.setChoice} options={THEME_CHOICES.map((c) => ({ value: c, label: t(`profile.themes.${c}`) }))} />
+            <p className="mt-2 text-sm text-muted">{t("profile.themeHint")}</p>
+          </div>
           <Toggle checked={me.preferences.dataSaver} onChange={(v) => savePrefs({ dataSaver: v })} label={t("profile.dataSaver")} description={t("profile.dataSaverBody")} />
           <Toggle checked={me.preferences.reducedMotion} onChange={(v) => savePrefs({ reducedMotion: v })} label={t("profile.reducedMotion")} />
           <Toggle checked={me.preferences.highContrast} onChange={(v) => savePrefs({ highContrast: v })} label={t("profile.highContrast")} />
@@ -99,7 +106,7 @@ export function ProfilePage() {
       </Section>
 
       <Section title={t("notifications.preferences")}>
-        <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-5">
+        <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-5">
           <Toggle checked={me.preferences.notifyBills} onChange={(v) => savePrefs({ notifyBills: v })} label={t("notifications.prefs.bills")} />
           <Toggle checked={me.preferences.notifyBudget} onChange={(v) => savePrefs({ notifyBudget: v })} label={t("notifications.prefs.budget")} />
           <Toggle checked={me.preferences.notifyGoals} onChange={(v) => savePrefs({ notifyGoals: v })} label={t("notifications.prefs.goals")} />
@@ -109,7 +116,7 @@ export function ProfilePage() {
       </Section>
 
       <Section>
-        <div className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-white">
+        <div className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-card">
           <Row to="/profile/privacy" icon={Shield} label={`${t("profile.privacy")} · ${t("profile.aiPermissions")}`} />
           <Row to="/profile/security" icon={Lock} label={t("profile.security")} />
           <Row to="/notifications" icon={Bell} label={t("profile.notifications")} />
@@ -159,7 +166,7 @@ export function PrivacyPage() {
       <PageHeader title={t("privacy.title")} subtitle={t("privacy.intro")} back={<Link to="/profile" className="mb-2 inline-block text-sm font-semibold text-leaf-800">← {t("profile.title")}</Link>} />
       <p className="rounded-2xl bg-leaf-50 p-4 font-medium text-leaf-800">{t("privacy.promises")}</p>
       <Section title={t("profile.aiPermissions")}>
-        <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-5">
+        <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-5">
           <Toggle checked={me.consents.aiDataAccess} onChange={(v) => setConsent({ aiDataAccess: v })} label={t("privacy.aiAccess")} description={t("privacy.aiAccessBody")} />
           <Toggle checked={me.consents.aiHistory} onChange={(v) => setConsent({ aiHistory: v })} label={t("privacy.aiHistory")} />
           <Toggle checked={me.consents.analytics} onChange={(v) => setConsent({ analytics: v })} label={t("privacy.analytics")} description={t("privacy.analyticsBody")} />
@@ -214,7 +221,7 @@ export function SecurityPage() {
     <div className="mx-auto max-w-2xl">
       <PageHeader title={t("security.title")} back={<Link to="/profile" className="mb-2 inline-block text-sm font-semibold text-leaf-800">← {t("profile.title")}</Link>} />
       <Section title={t("security.changePassword")} className="mt-0">
-        <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-line bg-white p-5">
+        <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-line bg-card p-5">
           <TextInput label={t("security.currentPassword")} type="password" autoComplete="current-password" value={cur} onChange={(e) => setCur(e.target.value)} />
           <TextInput label={t("security.newPassword")} type="password" autoComplete="new-password" hint={t("auth.passwordHint")} value={next} onChange={(e) => setNext(e.target.value)} error={err} />
           <Button disabled={!cur || next.length < 10} loading={change.isPending} onClick={() => change.mutate()}>
@@ -223,7 +230,7 @@ export function SecurityPage() {
         </div>
       </Section>
       <Section title={t("security.sessions")}>
-        <ul className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-4">
+        <ul className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-4">
           {sessions?.map((s) => (
             <li key={s.id} className="flex items-center gap-3 py-3">
               <Smartphone className="size-5 text-muted" />
@@ -259,7 +266,7 @@ export function NotificationsPage() {
     <div className="mx-auto max-w-2xl">
       <PageHeader title={t("notifications.title")} action={data?.some((n) => !n.read) ? <Button size="sm" variant="ghost" onClick={() => readAll.mutate()}>{t("notifications.markAll")}</Button> : undefined} />
       {isLoading ? null : data?.length ? (
-        <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-white">
+        <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-card">
           {data.map((n) => (
             <li key={n.id}>
               <button onClick={() => !n.read && read.mutate(n.id)} className={cx("flex w-full gap-3 px-4 py-4 text-left", !n.read && "bg-leaf-50/60")}>

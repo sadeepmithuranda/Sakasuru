@@ -55,7 +55,7 @@ function OverviewTab() {
   const max = Math.max(...d.byGroup.map((g) => g.total), 1);
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+      <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
         <h2 className="text-lg font-bold">{t("money.needsWants")}</h2>
         <div className="mt-4 flex h-5 overflow-hidden rounded-full bg-leaf-50" aria-hidden>
           {parts.map((p) => (
@@ -76,7 +76,7 @@ function OverviewTab() {
         <p className="mt-4 rounded-2xl bg-surface p-3 text-sm text-ink-soft">{t("budget.suggestion")}</p>
       </section>
 
-      <section className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+      <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
         <h2 className="text-lg font-bold">{t("home.whereMoneyWent")}</h2>
         {d.byGroup.length ? (
           <ul className="mt-4 flex flex-col gap-3">
@@ -114,7 +114,7 @@ function RecurringSection() {
   return (
     <Section title={t("money.recurring")} className="mt-0" action={<Button size="sm" variant="secondary" onClick={() => setOpen(true)}><Plus className="size-4" /> {t("money.addRecurring")}</Button>}>
       {data?.length ? (
-        <ul className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-4">
+        <ul className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-4">
           {data.map((r) => (
             <li key={r.id} className="flex items-center gap-3 py-3">
               <Repeat className="size-5 text-muted" aria-hidden />
@@ -215,7 +215,7 @@ function TransactionsTab() {
 
       <div className="mt-5">
         {filtered.length ? (
-          <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-4">
+          <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-4">
             {filtered.map((tx) => (
               <TransactionRow key={tx.id} tx={tx} onClick={() => setEditing(tx)} />
             ))}

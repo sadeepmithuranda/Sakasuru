@@ -80,7 +80,7 @@ export function LearnPage() {
       {/* Progress band */}
       <div className="grid gap-4 sm:grid-cols-[1fr_auto]">
         {next ? (
-          <Link to={`/learn/lesson/${next.slug}`} className="flex items-center gap-4 rounded-[var(--radius-panel)] bg-lagoon-700 p-5 text-white">
+          <Link to={`/learn/lesson/${next.slug}`} className="flex items-center gap-4 rounded-[var(--radius-panel)] bg-lagoon-deep p-5 text-white">
             <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-white/15 text-3xl" aria-hidden>
               {next.course.icon}
             </span>
@@ -89,12 +89,12 @@ export function LearnPage() {
               <span className="block text-lg font-bold">{pick(next.title)}</span>
               <span className="text-sm text-white/80">{t("common.minutes", { n: next.minutes })} · {t("common.xp", { n: next.xp })}</span>
             </span>
-            <span className="hidden shrink-0 rounded-full bg-white px-4 py-2 text-sm font-bold text-lagoon-700 sm:inline-flex">{t("learn.start")}</span>
+            <span className="hidden shrink-0 rounded-full bg-card px-4 py-2 text-sm font-bold text-lagoon-700 sm:inline-flex">{t("learn.start")}</span>
           </Link>
         ) : (
           <div className="rounded-[var(--radius-panel)] bg-leaf-50 p-5 font-semibold text-leaf-800">{t("learn.completed")} 🎉</div>
         )}
-        <Link to="/achievements" className="flex items-center gap-5 rounded-[var(--radius-panel)] border border-line bg-white px-5 py-4">
+        <Link to="/achievements" className="flex items-center gap-5 rounded-[var(--radius-panel)] border border-line bg-card px-5 py-4">
           <div className="text-center">
             <Flame className={cx("mx-auto size-7", learning?.streak ? "text-saffron-400" : "text-line")} aria-hidden />
             <p className="figure text-xl font-bold">{learning?.streak ?? 0}</p>
@@ -118,14 +118,14 @@ export function LearnPage() {
           onChange={(e) => setQ(e.target.value)}
           placeholder={t("learn.searchPlaceholder")}
           aria-label={t("common.search")}
-          className="h-12 w-full rounded-full border border-line bg-white pl-12 pr-4 focus:border-leaf-500 focus:outline-none focus:ring-3 focus:ring-leaf-100"
+          className="h-12 w-full rounded-full border border-line bg-card pl-12 pr-4 focus:border-leaf-500 focus:outline-none focus:ring-3 focus:ring-leaf-100"
         />
       </div>
 
       {q.trim() ? (
         <Section title={t("common.search")}>
           {results.length ? (
-            <ul className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-4">
+            <ul className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-4">
               {results.map((l) => (
                 <LessonRow key={l.slug} l={l} learning={learning} />
               ))}
@@ -138,7 +138,7 @@ export function LearnPage() {
         <>
           {recs.length > 0 && (
             <Section title={t("learn.recommended")}>
-              <ul className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-4">
+              <ul className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-4">
                 {recs.map((l) => (
                   <LessonRow key={l.slug} l={l} learning={learning} />
                 ))}
@@ -156,7 +156,7 @@ export function LearnPage() {
                   const done = c.lessons.filter((l) => learning?.completed[l.slug]).length;
                   return (
                     <li key={c.slug}>
-                      <Link to={`/learn/${c.slug}`} className="flex h-full gap-4 rounded-[var(--radius-card)] border border-line bg-white p-4 hover:border-leaf-300">
+                      <Link to={`/learn/${c.slug}`} className="flex h-full gap-4 rounded-[var(--radius-card)] border border-line bg-card p-4 hover:border-leaf-300">
                         <span className="grid size-14 shrink-0 place-items-center rounded-2xl text-3xl" style={{ background: c.color + "1A" }} aria-hidden>
                           {c.icon}
                         </span>
@@ -213,7 +213,7 @@ export function CoursePage() {
           <span className="shrink-0 text-sm font-semibold">{t("learn.progress", { done, total: course.lessons.length })}</span>
         </div>
       </div>
-      <ol className="mt-6 divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white px-4">
+      <ol className="mt-6 divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-4">
         {course.lessons.map((l) => (
           <LessonRow key={l.slug} l={{ ...l, course }} learning={learning} />
         ))}

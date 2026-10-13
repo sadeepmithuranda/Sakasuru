@@ -13,9 +13,9 @@ import { Button, ErrorState, ProgressBar, Skeleton } from "@/components/ui";
 import { cx } from "@/lib/util";
 
 const CARD_STYLE: Record<LessonCard["type"], { bg: string; icon: typeof BookOpen; tone: string }> = {
-  story: { bg: "bg-white", icon: BookOpen, tone: "text-lagoon-700" },
+  story: { bg: "bg-card", icon: BookOpen, tone: "text-lagoon-700" },
   concept: { bg: "bg-leaf-50", icon: Lightbulb, tone: "text-leaf-800" },
-  example: { bg: "bg-white", icon: Sparkles, tone: "text-saffron-700" },
+  example: { bg: "bg-card", icon: Sparkles, tone: "text-saffron-700" },
   question: { bg: "bg-lagoon-50", icon: Sparkles, tone: "text-lagoon-700" },
   tip: { bg: "bg-saffron-100", icon: Lightbulb, tone: "text-saffron-700" },
   warning: { bg: "bg-alert-50", icon: AlertTriangle, tone: "text-alert-500" },
@@ -29,7 +29,7 @@ function OptionButton({ label, state, onClick, disabled }: { label: string; stat
       aria-pressed={state === "selected"}
       className={cx(
         "flex w-full items-center gap-3 rounded-2xl border-2 px-4 py-3.5 text-left font-medium transition-colors",
-        state === "idle" && "border-line bg-white hover:border-leaf-300",
+        state === "idle" && "border-line bg-card hover:border-leaf-300",
         state === "selected" && "border-lagoon-500 bg-lagoon-50",
         state === "correct" && "border-leaf-500 bg-leaf-50",
         state === "wrong" && "border-alert-500 bg-alert-50",
@@ -109,7 +109,7 @@ export function LessonPage() {
                     ))}
                   </div>
                 )}
-                {isQ && checked && card.explanation && <p className="mt-4 rounded-2xl bg-white p-4 text-ink-soft">{pick(card.explanation)}</p>}
+                {isQ && checked && card.explanation && <p className="mt-4 rounded-2xl bg-card p-4 text-ink-soft">{pick(card.explanation)}</p>}
               </div>
               {last && (
                 <div className="mt-4 text-xs text-muted">
