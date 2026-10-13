@@ -4,18 +4,18 @@ import { useI18n } from "@/lib/i18n";
 
 /**
  * සකසුරු mark: a traditional clay savings pot (කැටය) drawn in modern geometry,
- * with a two-leaf sprout growing from the coin slot.
+ * with a two-leaf sprout (sunset orange) growing from the coin slot.
  */
 export function LogoMark({ size = 40, inverted = false }: { size?: number; inverted?: boolean }) {
-  const pot = inverted ? "#F5F8F5" : "var(--color-leaf-600)";
-  const slot = inverted ? "#0E6B4F" : "var(--color-surface)";
+  const pot = inverted ? "#F4F7FB" : "var(--color-brand-600)";
+  const slot = inverted ? "#1556B8" : "var(--color-surface)";
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden>
       <path d="M8 24c0-3.3 2.7-6 6-6h20c3.3 0 6 2.7 6 6v4c0 8.8-7.2 16-16 16S8 36.8 8 28z" fill={pot} />
       <rect x="15" y="12" width="18" height="6" rx="3" fill={pot} />
       <rect x="18" y="27" width="12" height="3" rx="1.5" fill={slot} />
-      <path d="M24 24c0-6.5 4-10.5 11-11.5-1 6.6-4.6 10.6-11 11.5z" fill="#F2B705" />
-      <path d="M24 24c0-5-3-8.4-8.6-9.4.6 5.2 3.4 8.6 8.6 9.4z" fill="#7BC4A4" />
+      <path d="M24 24c0-6.5 4-10.5 11-11.5-1 6.6-4.6 10.6-11 11.5z" fill="#F7881F" />
+      <path d="M24 24c0-5-3-8.4-8.6-9.4.6 5.2 3.4 8.6 8.6 9.4z" fill="#FFB45C" />
     </svg>
   );
 }
@@ -53,7 +53,7 @@ export function PetalScore({ score, band, factors, size = 196, onDark = false }:
     return `M${p(inner, a0)} L${p(r, a0)} A${r},${r} 0 0 1 ${p(r, a1)} L${p(inner, a1)} A${inner},${inner} 0 0 0 ${p(inner, a0)} Z`;
   };
   const ghost = onDark ? "rgba(255,255,255,0.14)" : "var(--color-track)";
-  const fills = onDark ? ["#F2B705", "#FFFFFF"] : ["var(--color-leaf-600)", "var(--color-leaf-500)"];
+  const fills = onDark ? ["#FF9A3C", "#FFFFFF"] : ["var(--color-brand-600)", "var(--color-brand-500)"];
   return (
     <figure className="relative" style={{ width: size, height: size }} aria-label={`${t("health.title")}: ${score} / 100, ${t(`health.bands.${band}`)}`}>
       <svg viewBox="0 0 200 200" width={size} height={size} role="img">

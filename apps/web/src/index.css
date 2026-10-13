@@ -1,42 +1,57 @@
 @import "tailwindcss";
 
 /*
- * සකසුරු design tokens
- * Tea-estate green carries trust; saffron (පිරිත් නූල් / kolam turmeric) is reserved
- * for achievement moments. Lagoon blue marks learning. Surfaces are cool, not cream.
+ * සකසුරු design tokens — blue and orange.
+ * Ocean blue (brand) carries trust and every primary action; sunset orange (accent)
+ * is kept for warmth and achievement moments (XP, streaks, badges); a lighter
+ * sea-sky blue (learn) marks learning. Surfaces are cool and calm.
+ * Token roles: brand = primary, accent = celebration, learn = lessons,
+ * alert/danger = risk, amber = near-limit warnings.
  */
 @theme {
-  --color-ink: #13261d;
-  --color-ink-soft: #3f5449;
-  --color-muted: #6b7d73;
-  --color-line: #dbe5df;
-  --color-surface: #f5f8f5;
+  --color-ink: #0f1d33;
+  --color-ink-soft: #3d4d66;
+  --color-muted: #5f6e86;
+  --color-line: #dbe3ee;
+  --color-surface: #f4f7fb;
   --color-card: #ffffff;
-  --color-leaf-50: #e8f4ee;
-  --color-leaf-100: #cfe9dc;
-  --color-leaf-300: #7bc4a4;
-  --color-leaf-500: #13895f;
-  --color-leaf-600: #0e6b4f;
-  --color-leaf-800: #0a4634;
-  --color-saffron-100: #fdf1c9;
-  --color-saffron-400: #f2b705;
-  --color-saffron-700: #8a6400;
-  --color-lagoon-50: #eaf1fb;
-  --color-lagoon-500: #2e5fa8;
-  --color-lagoon-700: #1f4272;
+  --color-brand-50: #eaf2fd;
+  --color-brand-100: #d3e3fb;
+  --color-brand-300: #8db6f2;
+  --color-brand-500: #1f6fd6;
+  --color-brand-600: #1556b8;
+  --color-brand-700: #144a9c;
+  --color-brand-800: #0d3a7f;
+  --color-accent-100: #ffedd9;
+  --color-accent-400: #f7881f;
+  --color-accent-700: #a34d06;
+  --color-on-accent: #1a1206;
+  --color-learn-50: #e5f5fa;
+  --color-learn-500: #0a86ad;
+  --color-learn-700: #075e7a;
   --color-alert-50: #fdeceb;
   --color-alert-500: #b42318;
-  --color-amber-50: #fff6e6;
-  --color-amber-600: #b45309;
+  --color-amber-50: #fef7e0;
+  --color-amber-600: #a16207;
   /* Panels that stay deep in both themes (white text on top) */
-  --color-forest: #0a4634;
-  --color-lagoon-deep: #1f4272;
+  --color-brand-deep: #0c2f66;
+  --color-learn-deep: #0a4a63;
   --color-danger: #b42318;
   /* Inverse chips (toasts, active admin tab) */
-  --color-inverse: #13261d;
+  --color-inverse: #0f1d33;
   --color-on-inverse: #ffffff;
   /* Empty tracks: chart grid lines, unfilled score petals */
-  --color-track: #e3eee8;
+  --color-track: #e2e9f3;
+  /* Chart categories: fixed order, colour follows the category (validated for colour-blind separation) */
+  --color-series-1: #2a78d6;
+  --color-series-2: #eb6834;
+  --color-series-3: #1baf7a;
+  --color-series-4: #eda100;
+  --color-series-5: #e87ba4;
+  --color-series-6: #008300;
+  --color-series-7: #6250d6;
+  --color-series-8: #e34948;
+  --color-series-other: #98a2b3;
 
   --font-sans: "Anek Latin Variable", "Anek Latin", "Yaldevi", "Anek Tamil Variable", "Anek Tamil", "Noto Sans Sinhala", "Noto Sans Tamil", ui-sans-serif, system-ui, sans-serif;
 
@@ -44,7 +59,7 @@
   --radius-card: 18px;
   --radius-field: 12px;
 
-  --shadow-lift: 0 1px 2px rgb(19 38 29 / 0.06), 0 8px 24px -12px rgb(19 38 29 / 0.18);
+  --shadow-lift: 0 1px 2px rgb(15 29 51 / 0.06), 0 8px 24px -12px rgb(15 29 51 / 0.18);
 }
 
 :root {
@@ -68,50 +83,60 @@ body {
 }
 
 /*
- * Dark theme — night-time tea estate: deep green-black surfaces, tints become
- * low-light washes and their text becomes the light shade. Applied by the "dark"
- * class on <html> (see lib/theme.ts and public/theme-init.js).
+ * Dark theme — night ocean: deep navy surfaces, tints become low-light washes and
+ * their text becomes the light shade; orange glows a little brighter. Applied by
+ * the "dark" class on <html> (see lib/theme.ts and public/theme-init.js).
  */
 .dark {
   color-scheme: dark;
-  --color-ink: #e4eee8;
-  --color-ink-soft: #bccbc3;
-  --color-muted: #93a89e;
-  --color-line: #2a3b34;
-  --color-surface: #0b1310;
-  --color-card: #131d19;
-  --color-leaf-50: #12291f;
-  --color-leaf-100: #1b3b2e;
-  --color-leaf-300: #2f6b55;
-  --color-leaf-500: #2fae7d;
-  --color-leaf-600: #16865f;
-  --color-leaf-700: #7fd3ad;
-  --color-leaf-800: #9be0bf;
-  --color-saffron-100: #2e2608;
-  --color-saffron-700: #f2c94c;
-  --color-lagoon-50: #13213a;
-  --color-lagoon-500: #6d9be0;
-  --color-lagoon-700: #a9c6f0;
+  --color-ink: #e6edf8;
+  --color-ink-soft: #bac7da;
+  --color-muted: #93a1b8;
+  --color-line: #26354f;
+  --color-surface: #0a1220;
+  --color-card: #111b2e;
+  --color-brand-50: #0f2141;
+  --color-brand-100: #17305c;
+  --color-brand-300: #2c4f8a;
+  --color-brand-500: #5b97f0;
+  --color-brand-600: #2563d0;
+  --color-brand-700: #8fb8f5;
+  --color-brand-800: #a9c8f7;
+  --color-accent-100: #3a230c;
+  --color-accent-400: #ff9a3c;
+  --color-accent-700: #ffb877;
+  --color-learn-50: #0b2733;
+  --color-learn-500: #3cb6dd;
+  --color-learn-700: #8ad6ee;
   --color-alert-50: #35150f;
   --color-alert-500: #ff8a7f;
-  --color-amber-50: #2e2008;
-  --color-amber-600: #f5b454;
-  --color-forest: #0f3b2c;
-  --color-lagoon-deep: #1b3557;
+  --color-amber-50: #2f2508;
+  --color-amber-600: #f2c14e;
+  --color-brand-deep: #10295a;
+  --color-learn-deep: #0c3a4d;
   --color-danger: #c4321f;
-  --color-inverse: #e4eee8;
-  --color-on-inverse: #0b1310;
-  --color-track: #22332b;
+  --color-inverse: #e6edf8;
+  --color-on-inverse: #0a1220;
+  --color-track: #1c2940;
+  --color-series-1: #3987e5;
+  --color-series-2: #d95926;
+  --color-series-3: #199e70;
+  --color-series-4: #c98500;
+  --color-series-5: #d55181;
+  --color-series-6: #008300;
+  --color-series-7: #9085e9;
+  --color-series-8: #e66767;
+  --color-series-other: #66728a;
   --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 28px -12px rgb(0 0 0 / 0.7);
 }
-/* Green text needs the brighter shade on dark surfaces to stay readable. */
-.dark .text-leaf-600 {
-  color: var(--color-leaf-500);
+/* Blue text needs the brighter shade on dark surfaces to stay readable. */
+.dark .text-brand-600 {
+  color: var(--color-brand-500);
 }
 .dark.high-contrast {
-  --color-muted: #c9d6cf;
-  --color-ink-soft: #e4eee8;
-  --color-line: #55705f;
+  --color-muted: #c9d4e6;
+  --color-ink-soft: #e6edf8;
+  --color-line: #52668a;
 }
 
 /* Recharts: axis labels and tooltips follow the theme. */
@@ -152,15 +177,15 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-lagoon-500);
+  outline: 3px solid var(--color-learn-500);
   outline-offset: 2px;
   border-radius: 6px;
 }
 
 .high-contrast {
-  --color-muted: #2f3f37;
-  --color-ink-soft: #13261d;
-  --color-line: #8aa196;
+  --color-muted: #2e3b52;
+  --color-ink-soft: #0f1d33;
+  --color-line: #8696b0;
 }
 
 .reduce-motion *,
@@ -182,15 +207,15 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Woven border inspired by Dumbara mat patterns — used once, on the welcome screen. */
+/* Woven border inspired by Dumbara mat patterns (blue and orange) — used once, on the welcome screen. */
 .dumbara {
-  background-image: repeating-linear-gradient(45deg, var(--color-leaf-600) 0 6px, transparent 6px 12px),
-    repeating-linear-gradient(-45deg, var(--color-saffron-400) 0 6px, transparent 6px 12px);
+  background-image: repeating-linear-gradient(45deg, var(--color-brand-600) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(-45deg, var(--color-accent-400) 0 6px, transparent 6px 12px);
   background-size: 17px 17px;
 }
 
 input[type="range"] {
-  accent-color: var(--color-leaf-600);
+  accent-color: var(--color-brand-600);
 }
 
 .scrollbar-none::-webkit-scrollbar {

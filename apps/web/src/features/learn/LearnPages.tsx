@@ -48,7 +48,7 @@ function LessonRow({ l, learning }: { l: LessonItem; learning?: LearningStateDTO
   return (
     <li>
       <Link to={lock ? "#" : `/learn/lesson/${l.slug}`} aria-disabled={!!lock} onClick={(e) => lock && e.preventDefault()} className={cx("flex items-center gap-3 py-3.5", lock && "cursor-not-allowed opacity-60")}>
-        <span className={cx("grid size-10 shrink-0 place-items-center rounded-full", done ? "bg-leaf-600 text-white" : lock ? "bg-surface text-muted" : "bg-leaf-50 text-leaf-800")}>
+        <span className={cx("grid size-10 shrink-0 place-items-center rounded-full", done ? "bg-brand-600 text-white" : lock ? "bg-surface text-muted" : "bg-brand-50 text-brand-800")}>
           {done ? <Check className="size-5" /> : lock ? <Lock className="size-4" /> : <span className="text-lg" aria-hidden>{l.course.icon}</span>}
         </span>
         <span className="min-w-0 flex-1">
@@ -80,7 +80,7 @@ export function LearnPage() {
       {/* Progress band */}
       <div className="grid gap-4 sm:grid-cols-[1fr_auto]">
         {next ? (
-          <Link to={`/learn/lesson/${next.slug}`} className="flex items-center gap-4 rounded-[var(--radius-panel)] bg-lagoon-deep p-5 text-white">
+          <Link to={`/learn/lesson/${next.slug}`} className="flex items-center gap-4 rounded-[var(--radius-panel)] bg-learn-deep p-5 text-white">
             <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-white/15 text-3xl" aria-hidden>
               {next.course.icon}
             </span>
@@ -89,21 +89,21 @@ export function LearnPage() {
               <span className="block text-lg font-bold">{pick(next.title)}</span>
               <span className="text-sm text-white/80">{t("common.minutes", { n: next.minutes })} · {t("common.xp", { n: next.xp })}</span>
             </span>
-            <span className="hidden shrink-0 rounded-full bg-card px-4 py-2 text-sm font-bold text-lagoon-700 sm:inline-flex">{t("learn.start")}</span>
+            <span className="hidden shrink-0 rounded-full bg-card px-4 py-2 text-sm font-bold text-learn-700 sm:inline-flex">{t("learn.start")}</span>
           </Link>
         ) : (
-          <div className="rounded-[var(--radius-panel)] bg-leaf-50 p-5 font-semibold text-leaf-800">{t("learn.completed")} 🎉</div>
+          <div className="rounded-[var(--radius-panel)] bg-brand-50 p-5 font-semibold text-brand-800">{t("learn.completed")} 🎉</div>
         )}
         <Link to="/achievements" className="flex items-center gap-5 rounded-[var(--radius-panel)] border border-line bg-card px-5 py-4">
           <div className="text-center">
-            <Flame className={cx("mx-auto size-7", learning?.streak ? "text-saffron-400" : "text-line")} aria-hidden />
+            <Flame className={cx("mx-auto size-7", learning?.streak ? "text-accent-400" : "text-line")} aria-hidden />
             <p className="figure text-xl font-bold">{learning?.streak ?? 0}</p>
             <p className="text-xs text-muted">{learning?.streak ? t("learn.streakDays") : t("learn.noStreak")}</p>
           </div>
           <div className="min-w-32">
             <p className="text-sm font-semibold">{t("learn.levelLabel", { n: learning?.level ?? 1 })}</p>
             <div className="mt-1.5">
-              <ProgressBar value={learning ? (learning.currentLevelXp / learning.nextLevelXp) * 100 : 0} tone="saffron" label={t("learn.levelLabel", { n: learning?.level ?? 1 })} />
+              <ProgressBar value={learning ? (learning.currentLevelXp / learning.nextLevelXp) * 100 : 0} tone="accent" label={t("learn.levelLabel", { n: learning?.level ?? 1 })} />
             </div>
             <p className="mt-1 text-xs text-muted">{t("learn.totalXp", { n: learning?.xp ?? 0 })}</p>
           </div>
@@ -118,7 +118,7 @@ export function LearnPage() {
           onChange={(e) => setQ(e.target.value)}
           placeholder={t("learn.searchPlaceholder")}
           aria-label={t("common.search")}
-          className="h-12 w-full rounded-full border border-line bg-card pl-12 pr-4 focus:border-leaf-500 focus:outline-none focus:ring-3 focus:ring-leaf-100"
+          className="h-12 w-full rounded-full border border-line bg-card pl-12 pr-4 focus:border-brand-500 focus:outline-none focus:ring-3 focus:ring-brand-100"
         />
       </div>
 
@@ -156,7 +156,7 @@ export function LearnPage() {
                   const done = c.lessons.filter((l) => learning?.completed[l.slug]).length;
                   return (
                     <li key={c.slug}>
-                      <Link to={`/learn/${c.slug}`} className="flex h-full gap-4 rounded-[var(--radius-card)] border border-line bg-card p-4 hover:border-leaf-300">
+                      <Link to={`/learn/${c.slug}`} className="flex h-full gap-4 rounded-[var(--radius-card)] border border-line bg-card p-4 hover:border-brand-300">
                         <span className="grid size-14 shrink-0 place-items-center rounded-2xl text-3xl" style={{ background: c.color + "1A" }} aria-hidden>
                           {c.icon}
                         </span>
@@ -196,7 +196,7 @@ export function CoursePage() {
   const done = course.lessons.filter((l) => learning?.completed[l.slug]).length;
   return (
     <div className="mx-auto max-w-2xl">
-      <Link to="/learn" className="text-sm font-semibold text-leaf-800">
+      <Link to="/learn" className="text-sm font-semibold text-brand-800">
         ← {t("learn.title")}
       </Link>
       <div className="mt-4 rounded-[var(--radius-panel)] p-6" style={{ background: course.color + "14" }}>

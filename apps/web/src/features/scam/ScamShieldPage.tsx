@@ -10,7 +10,7 @@ import { Button, PageHeader, Section } from "@/components/ui";
 import { cx } from "@/lib/util";
 
 const RISK = {
-  low: { icon: ShieldCheck, cls: "bg-leaf-50 text-leaf-800 border-leaf-300" },
+  low: { icon: ShieldCheck, cls: "bg-brand-50 text-brand-800 border-brand-300" },
   suspicious: { icon: ShieldQuestion, cls: "bg-amber-50 text-amber-600 border-amber-600/40" },
   high: { icon: ShieldAlert, cls: "bg-alert-50 text-alert-500 border-alert-500/40" },
 };
@@ -48,7 +48,7 @@ export function ScamShieldPage() {
           <label className="sr-only" htmlFor="scam-text">
             {t("scam.placeholder")}
           </label>
-          <textarea id="scam-text" value={text} onChange={(e) => (setText(e.target.value), setResult(null))} maxLength={5000} rows={6} placeholder={t("scam.placeholder")} className="mt-4 w-full rounded-2xl border border-line bg-surface p-4 focus:border-leaf-500 focus:outline-none focus:ring-3 focus:ring-leaf-100" />
+          <textarea id="scam-text" value={text} onChange={(e) => (setText(e.target.value), setResult(null))} maxLength={5000} rows={6} placeholder={t("scam.placeholder")} className="mt-4 w-full rounded-2xl border border-line bg-surface p-4 focus:border-brand-500 focus:outline-none focus:ring-3 focus:ring-brand-100" />
           <Button className="mt-3 w-full" onClick={check} loading={loading} disabled={!text.trim()}>
             {t("scam.check")}
           </Button>
@@ -79,7 +79,7 @@ export function ScamShieldPage() {
         </section>
 
         <div className="flex flex-col gap-6">
-          <section className="rounded-[var(--radius-panel)] bg-lagoon-deep p-5 text-white sm:p-6">
+          <section className="rounded-[var(--radius-panel)] bg-learn-deep p-5 text-white sm:p-6">
             <h2 className="text-xl font-bold">{t("scam.quizTitle")}</h2>
             <blockquote className="mt-4 rounded-2xl bg-white/10 p-4 text-lg leading-relaxed">{pick(ex.message)}</blockquote>
             {guess === null ? (
@@ -87,7 +87,7 @@ export function ScamShieldPage() {
                 <button onClick={() => (setGuess(true), ex.isScam && setScore((s) => s + 1))} className="rounded-full bg-card py-3 font-bold text-alert-500">
                   🚩 {t("scam.isScam")}
                 </button>
-                <button onClick={() => (setGuess(false), !ex.isScam && setScore((s) => s + 1))} className="rounded-full bg-card py-3 font-bold text-leaf-800">
+                <button onClick={() => (setGuess(false), !ex.isScam && setScore((s) => s + 1))} className="rounded-full bg-card py-3 font-bold text-brand-800">
                   ✓ {t("scam.isSafe")}
                 </button>
               </div>
@@ -122,8 +122,8 @@ export function ScamShieldPage() {
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {protection.map((l) => (
             <li key={l.slug}>
-              <Link to={`/learn/lesson/${l.slug}`} className="flex h-full items-center gap-3 rounded-[var(--radius-card)] border border-line bg-card p-4 hover:border-leaf-300">
-                <ShieldCheck className={cx("size-7 shrink-0", learning?.completed[l.slug] ? "text-leaf-600" : "text-muted")} />
+              <Link to={`/learn/lesson/${l.slug}`} className="flex h-full items-center gap-3 rounded-[var(--radius-card)] border border-line bg-card p-4 hover:border-brand-300">
+                <ShieldCheck className={cx("size-7 shrink-0", learning?.completed[l.slug] ? "text-brand-600" : "text-muted")} />
                 <span className="font-semibold">{pick(l.title)}</span>
               </Link>
             </li>

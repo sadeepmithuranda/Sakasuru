@@ -18,7 +18,7 @@ function GoalCard({ g, onContribute }: { g: GoalDTO; onContribute: () => void })
   return (
     <li className={cx("rounded-[var(--radius-card)] border border-line bg-card p-5", g.status === "paused" && "opacity-75")}>
       <div className="flex items-start gap-3">
-        <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-leaf-50 text-2xl" aria-hidden>
+        <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-brand-50 text-2xl" aria-hidden>
           {GOAL_ICON[g.type] ?? "🎯"}
         </span>
         <div className="min-w-0 flex-1">
@@ -32,13 +32,13 @@ function GoalCard({ g, onContribute }: { g: GoalDTO; onContribute: () => void })
         <span className="figure text-lg font-bold">{Math.round(g.progressPercent)}%</span>
       </div>
       <div className="mt-4">
-        <ProgressBar value={g.progressPercent} tone={g.status === "completed" ? "saffron" : "leaf"} label={g.name} />
+        <ProgressBar value={g.progressPercent} tone={g.status === "completed" ? "accent" : "brand"} label={g.name} />
         <p className="figure mt-2 text-sm text-muted">
           {money(g.saved)} / {money(g.target)}
         </p>
       </div>
       {g.status === "completed" ? (
-        <p className="mt-3 font-semibold text-saffron-700">{t("goals.reached")}</p>
+        <p className="mt-3 font-semibold text-accent-700">{t("goals.reached")}</p>
       ) : (
         g.monthlyRequired > 0 && <p className="mt-3 rounded-xl bg-surface p-3 text-sm">{t("goals.monthlyNeeded", { amount: money(g.monthlyRequired) })}</p>
       )}
@@ -78,8 +78,8 @@ export function GoalsPage() {
   return (
     <div>
       <PageHeader title={t("goals.title")} action={<Button onClick={() => setCreating(true)}><Plus className="size-5" /> {t("goals.create")}</Button>} />
-      <Link to="/goals/emergency" className="flex items-center gap-4 rounded-[var(--radius-panel)] bg-forest p-5 text-white">
-        <ShieldCheck className="size-9 text-saffron-400" />
+      <Link to="/goals/emergency" className="flex items-center gap-4 rounded-[var(--radius-panel)] bg-brand-deep p-5 text-white">
+        <ShieldCheck className="size-9 text-accent-400" />
         <span className="flex-1">
           <span className="block text-lg font-bold">{t("emergency.title")}</span>
           <span className="text-sm text-white/80">{t("emergency.what")}</span>
@@ -142,7 +142,7 @@ export function CreateGoalSheet({ open, onClose, preset }: { open: boolean; onCl
         <MoneyInput label={t("goals.target")} value={f.target} onChange={(v) => setF({ ...f, target: v })} />
         <MoneyInput label={t("goals.saved")} value={f.saved} onChange={(v) => setF({ ...f, saved: v })} />
         <TextInput label={t("goals.deadline")} type="date" value={f.deadline} onChange={(e) => setF({ ...f, deadline: e.target.value })} />
-        {preview && preview.monthlyRequired > 0 && <p className="rounded-2xl bg-leaf-50 p-4 font-semibold text-leaf-800">{t("goals.monthlyNeeded", { amount: money(preview.monthlyRequired) })}</p>}
+        {preview && preview.monthlyRequired > 0 && <p className="rounded-2xl bg-brand-50 p-4 font-semibold text-brand-800">{t("goals.monthlyNeeded", { amount: money(preview.monthlyRequired) })}</p>}
         <Button
           loading={add.isPending}
           disabled={!f.name || !Number(f.target)}
@@ -170,7 +170,7 @@ function ContributeSheet({ goal, onClose }: { goal: GoalDTO | null; onClose: () 
         <MoneyInput label={t("goals.contributionAmount")} value={amount} onChange={setAmount} big autoFocus />
         <div className="flex gap-2">
           {[500, 1000, 2500, 5000].map((v) => (
-            <button key={v} onClick={() => setAmount(String(v))} className="flex-1 rounded-full border border-line bg-card py-2 text-sm font-semibold hover:border-leaf-300">
+            <button key={v} onClick={() => setAmount(String(v))} className="flex-1 rounded-full border border-line bg-card py-2 text-sm font-semibold hover:border-brand-300">
               {v.toLocaleString("en-US")}
             </button>
           ))}
@@ -205,7 +205,7 @@ export function EmergencyFundPage() {
   const hasGoal = d?.goals.some((g) => g.type === "emergency");
   return (
     <div className="mx-auto max-w-2xl">
-      <PageHeader title={t("emergency.title")} subtitle={t("emergency.what")} back={<Link to="/goals" className="mb-2 inline-block text-sm font-semibold text-leaf-800">← {t("goals.title")}</Link>} />
+      <PageHeader title={t("emergency.title")} subtitle={t("emergency.what")} back={<Link to="/goals" className="mb-2 inline-block text-sm font-semibold text-brand-800">← {t("goals.title")}</Link>} />
       <div className="flex flex-col gap-5">
         <MoneyInput label={t("emergency.essential")} hint={d?.essentialMonthly ? t("emergency.fromData") : t("emergency.essentialHint")} value={ess} onChange={setEssential} />
         <div>
@@ -221,7 +221,7 @@ export function EmergencyFundPage() {
               </div>
               <div>
                 <dt className="text-sm text-muted">{t("emergency.current")}</dt>
-                <dd className="figure mt-1 text-xl font-bold text-leaf-600">{money(r.current)}</dd>
+                <dd className="figure mt-1 text-xl font-bold text-brand-600">{money(r.current)}</dd>
               </div>
               <div>
                 <dt className="text-sm text-muted">{t("emergency.remaining")}</dt>
@@ -236,9 +236,9 @@ export function EmergencyFundPage() {
                     <path d="M10 34c0-5 4-9 9-9h42c5 0 9 4 9 9v8c0 22-13 40-30 40S10 64 10 42z" />
                   </clipPath>
                 </defs>
-                <path d="M10 34c0-5 4-9 9-9h42c5 0 9 4 9 9v8c0 22-13 40-30 40S10 64 10 42z" fill="var(--color-leaf-50)" />
-                <rect x="0" y={82 - (57 * r.progressPercent) / 100} width="80" height="90" fill="var(--color-leaf-500)" clipPath="url(#pot)" />
-                <rect x="24" y="12" width="32" height="13" rx="6" fill="var(--color-leaf-600)" />
+                <path d="M10 34c0-5 4-9 9-9h42c5 0 9 4 9 9v8c0 22-13 40-30 40S10 64 10 42z" fill="var(--color-brand-50)" />
+                <rect x="0" y={82 - (57 * r.progressPercent) / 100} width="80" height="90" fill="var(--color-brand-500)" clipPath="url(#pot)" />
+                <rect x="24" y="12" width="32" height="13" rx="6" fill="var(--color-brand-600)" />
               </svg>
               <div className="flex-1">
                 <p className="figure text-4xl font-bold">{r.progressPercent}%</p>

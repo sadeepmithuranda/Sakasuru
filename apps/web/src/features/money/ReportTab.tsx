@@ -37,7 +37,7 @@ export function ReportTab() {
     <div>
       <div className="scrollbar-none -mx-4 flex gap-2 overflow-x-auto px-4">
         {months.map((x) => (
-          <button key={x} onClick={() => setM(x)} className={cx("whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold", x === m ? "border-leaf-600 bg-leaf-600 text-white" : "border-line bg-card")}>
+          <button key={x} onClick={() => setM(x)} className={cx("whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold", x === m ? "border-brand-600 bg-brand-600 text-white" : "border-line bg-card")}>
             {month(x)}
           </button>
         ))}
@@ -48,7 +48,7 @@ export function ReportTab() {
         <p className="mt-6 text-muted">{t("report.noData")}</p>
       ) : (
         <article className="mt-6 overflow-hidden rounded-[var(--radius-panel)] border border-line bg-card">
-          <header className="bg-forest p-6 text-white">
+          <header className="bg-brand-deep p-6 text-white">
             <p className="text-sm text-white/70">{month(r.month)}</p>
             <h2 className="mt-1 text-2xl font-bold">{t("report.title")}</h2>
             <div className="mt-5 flex items-end gap-3">

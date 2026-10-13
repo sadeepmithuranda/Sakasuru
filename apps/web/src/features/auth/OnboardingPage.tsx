@@ -53,7 +53,7 @@ export function OnboardingPage() {
         {phase === "computing" || !dash ? (
           <div className="grid flex-1 place-items-center text-center">
             <div>
-              <div className="mx-auto size-16 animate-spin rounded-full border-4 border-leaf-100 border-t-leaf-600" aria-hidden />
+              <div className="mx-auto size-16 animate-spin rounded-full border-4 border-brand-100 border-t-brand-600" aria-hidden />
               <p className="mt-6 text-lg font-semibold">{t("onboarding.computing")}</p>
             </div>
           </div>
@@ -63,9 +63,9 @@ export function OnboardingPage() {
             <div className="mt-6">
               <PetalScore score={dash.health.score} band={dash.health.band} factors={dash.health.factors} size={220} />
             </div>
-            <p className="mt-4 text-xl font-bold text-leaf-800">{t(`health.bands.${dash.health.band}`)}</p>
+            <p className="mt-4 text-xl font-bold text-brand-800">{t(`health.bands.${dash.health.band}`)}</p>
             <p className="mt-2 text-ink-soft">{t(`health.bandMessages.${dash.health.band}`)}</p>
-            <p className="mt-6 rounded-2xl bg-lagoon-50 p-4 text-left text-sm text-lagoon-700">{t("onboarding.resultBody")}</p>
+            <p className="mt-6 rounded-2xl bg-learn-50 p-4 text-left text-sm text-learn-700">{t("onboarding.resultBody")}</p>
             <Button size="lg" className="mt-auto w-full" onClick={() => nav("/")}>
               {t("onboarding.resultCta")}
             </Button>
@@ -80,7 +80,7 @@ export function OnboardingPage() {
   return (
     <AuthLayout>
       <div className="mt-2 flex items-center gap-3">
-        <button onClick={() => (step ? setStep(step - 1) : nav(-1))} className="grid size-10 place-items-center rounded-full hover:bg-leaf-50" aria-label={t("common.back")}>
+        <button onClick={() => (step ? setStep(step - 1) : nav(-1))} className="grid size-10 place-items-center rounded-full hover:bg-brand-50" aria-label={t("common.back")}>
           <ArrowLeft className="size-5" />
         </button>
         <div className="flex-1">

@@ -33,7 +33,7 @@ const AdminAudit = lazy(() => import("@/features/admin/AdminPages").then((m) => 
 
 function Splash() {
   return (
-    <div className="grid min-h-screen place-items-center bg-leaf-600">
+    <div className="grid min-h-screen place-items-center bg-brand-600">
       <div className="flex flex-col items-center gap-4 text-white">
         <LogoMark size={72} inverted />
         <span className="text-3xl font-bold" style={{ fontFamily: "Yaldevi, var(--font-sans)" }}>
@@ -104,7 +104,7 @@ function Guarded() {
 export function App() {
   return (
     <HashRouter>
-      <Suspense fallback={<div className="mx-auto mt-24 size-10 animate-spin rounded-full border-4 border-leaf-100 border-t-leaf-600" aria-hidden />}>
+      <Suspense fallback={<div className="mx-auto mt-24 size-10 animate-spin rounded-full border-4 border-brand-100 border-t-brand-600" aria-hidden />}>
         <Guarded />
       </Suspense>
     </HashRouter>

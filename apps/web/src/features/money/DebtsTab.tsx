@@ -79,11 +79,11 @@ export function DebtsTab() {
 
       {!!debts?.length && <Simulator />}
 
-      <Link to="/tools/creditCard" className="mt-8 flex items-center gap-4 rounded-[var(--radius-card)] bg-lagoon-50 p-5">
-        <CreditCard className="size-7 text-lagoon-700" />
+      <Link to="/tools/creditCard" className="mt-8 flex items-center gap-4 rounded-[var(--radius-card)] bg-learn-50 p-5">
+        <CreditCard className="size-7 text-learn-700" />
         <span>
           <span className="block font-bold">{t("creditCard.title")}</span>
-          <span className="text-sm text-lagoon-700">{t("creditCard.highlight")}</span>
+          <span className="text-sm text-learn-700">{t("creditCard.highlight")}</span>
         </span>
       </Link>
       <AddDebtSheet open={open} onClose={() => setOpen(false)} />
@@ -128,13 +128,13 @@ function Simulator() {
                 <dt className="text-sm text-muted">{t("simulator.currentPayoff")}</dt>
                 <dd className="mt-1 font-bold">{monthsLabel(t, base || null)}</dd>
               </div>
-              <div className="rounded-2xl bg-leaf-50 p-4">
-                <dt className="text-sm text-leaf-800">{t("simulator.newPayoff")}</dt>
-                <dd className="mt-1 font-bold text-leaf-800">{monthsLabel(t, s.months)}</dd>
-                {base > s.months && <dd className="text-sm font-semibold text-leaf-600">{t("simulator.monthsSooner", { n: base - s.months })}</dd>}
+              <div className="rounded-2xl bg-brand-50 p-4">
+                <dt className="text-sm text-brand-800">{t("simulator.newPayoff")}</dt>
+                <dd className="mt-1 font-bold text-brand-800">{monthsLabel(t, s.months)}</dd>
+                {base > s.months && <dd className="text-sm font-semibold text-brand-600">{t("simulator.monthsSooner", { n: base - s.months })}</dd>}
               </div>
-              <div className="rounded-2xl bg-saffron-100 p-4">
-                <dt className="text-sm text-saffron-700">{t("simulator.interestSaved")}</dt>
+              <div className="rounded-2xl bg-accent-100 p-4">
+                <dt className="text-sm text-accent-700">{t("simulator.interestSaved")}</dt>
                 <dd className="figure mt-1 font-bold">{money(Math.max(0, sim.perDebt.reduce((a, p) => a + (p.current.totalInterest ?? 0), 0) - s.totalInterest))}</dd>
               </div>
             </dl>
@@ -143,7 +143,7 @@ function Simulator() {
           <ol className="mt-2 flex flex-col gap-2">
             {s.order.map((o, i) => (
               <li key={o.id} className="flex items-center gap-3 text-sm">
-                <span className="grid size-7 place-items-center rounded-full bg-leaf-100 font-bold text-leaf-800">{i + 1}</span>
+                <span className="grid size-7 place-items-center rounded-full bg-brand-100 font-bold text-brand-800">{i + 1}</span>
                 <span className="flex-1 font-semibold">{debts?.find((d) => d.id === o.id)?.lender || t(`debts.types.${debts?.find((d) => d.id === o.id)?.type ?? "other"}`)}</span>
                 <span className="text-muted">{o.paidOffMonth ? t("simulator.paidMonth", { n: o.paidOffMonth }) : "—"}</span>
               </li>

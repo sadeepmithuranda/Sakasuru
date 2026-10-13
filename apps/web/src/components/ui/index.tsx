@@ -7,11 +7,11 @@ import { cx } from "@/lib/util";
 type Variant = "primary" | "secondary" | "ghost" | "danger" | "quiet";
 export function Button({ variant = "primary", size = "md", loading, className, children, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; size?: "sm" | "md" | "lg"; loading?: boolean }) {
   const styles: Record<Variant, string> = {
-    primary: "bg-leaf-600 text-white hover:bg-forest disabled:bg-leaf-300",
-    secondary: "bg-leaf-50 text-leaf-800 hover:bg-leaf-100",
-    ghost: "bg-transparent text-leaf-800 hover:bg-leaf-50",
+    primary: "bg-brand-600 text-white hover:bg-brand-deep disabled:bg-brand-300",
+    secondary: "bg-brand-50 text-brand-800 hover:bg-brand-100",
+    ghost: "bg-transparent text-brand-800 hover:bg-brand-50",
     danger: "bg-danger text-white hover:brightness-95",
-    quiet: "bg-card text-ink border border-line hover:border-leaf-300",
+    quiet: "bg-card text-ink border border-line hover:border-brand-300",
   };
   const sizes = { sm: "h-9 px-3.5 text-sm", md: "h-11 px-5 text-[15px]", lg: "h-13 px-6 text-base" };
   return (
@@ -60,7 +60,7 @@ export function Field({ label, hint, error, children, htmlFor }: { label: string
   );
 }
 
-const inputBase = "h-12 w-full rounded-[var(--radius-field)] border border-line bg-card px-3.5 text-[15px] text-ink placeholder:text-muted/70 focus:border-leaf-500 focus:outline-none focus:ring-3 focus:ring-leaf-100";
+const inputBase = "h-12 w-full rounded-[var(--radius-field)] border border-line bg-card px-3.5 text-[15px] text-ink placeholder:text-muted/70 focus:border-brand-500 focus:outline-none focus:ring-3 focus:ring-brand-100";
 
 export function TextInput({ label, hint, error, className, ...rest }: InputHTMLAttributes<HTMLInputElement> & { label: string; hint?: string; error?: string | null }) {
   const id = useId();
@@ -76,7 +76,7 @@ export function MoneyInput({ label, value, onChange, hint, error, autoFocus, big
   const id = useId();
   return (
     <Field label={label} hint={hint} error={error} htmlFor={id}>
-      <div className={cx("flex items-center rounded-[var(--radius-field)] border border-line bg-card focus-within:border-leaf-500 focus-within:ring-3 focus-within:ring-leaf-100", big ? "h-20 px-4" : "h-12 px-3.5")}>
+      <div className={cx("flex items-center rounded-[var(--radius-field)] border border-line bg-card focus-within:border-brand-500 focus-within:ring-3 focus-within:ring-brand-100", big ? "h-20 px-4" : "h-12 px-3.5")}>
         <span className={cx("mr-2 font-semibold text-muted", big ? "text-2xl" : "text-[15px]")}>Rs.</span>
         <input
           id={id}
@@ -120,7 +120,7 @@ export function Toggle({ checked, onChange, label, description, disabled }: { ch
         aria-checked={checked}
         disabled={disabled}
         onClick={() => onChange(!checked)}
-        className={cx("relative mt-1 h-7 w-12 shrink-0 rounded-full transition-colors disabled:opacity-60", checked ? "bg-leaf-600" : "bg-line")}
+        className={cx("relative mt-1 h-7 w-12 shrink-0 rounded-full transition-colors disabled:opacity-60", checked ? "bg-brand-600" : "bg-line")}
       >
         <span className={cx("absolute left-0 top-1 size-5 rounded-full bg-white shadow transition-transform", checked ? "translate-x-6" : "translate-x-1")} />
       </button>
@@ -131,14 +131,14 @@ export function Toggle({ checked, onChange, label, description, disabled }: { ch
 /** Segmented control for short, mutually exclusive choices. */
 export function Segmented<T extends string>({ value, onChange, options, label }: { value: T; onChange: (v: T) => void; options: { value: T; label: string }[]; label: string }) {
   return (
-    <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-0.5 rounded-[22px] bg-leaf-50 p-1">
+    <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-0.5 rounded-[22px] bg-brand-50 p-1">
       {options.map((o) => (
         <button
           key={o.value}
           role="radio"
           aria-checked={value === o.value}
           onClick={() => onChange(o.value)}
-          className={cx("flex-1 basis-auto whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold transition-colors", value === o.value ? "bg-card text-leaf-800 shadow-sm" : "text-ink-soft hover:text-ink")}
+          className={cx("flex-1 basis-auto whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold transition-colors", value === o.value ? "bg-card text-brand-800 shadow-sm" : "text-ink-soft hover:text-ink")}
         >
           {o.label}
         </button>
@@ -152,7 +152,7 @@ export function Chip({ selected, onClick, children }: { selected?: boolean; onCl
     <button
       onClick={onClick}
       aria-pressed={selected}
-      className={cx("inline-flex min-h-11 items-center gap-2 rounded-2xl border px-4 py-2.5 text-left text-[15px] font-medium transition-colors", selected ? "border-leaf-500 bg-leaf-50 text-leaf-800" : "border-line bg-card text-ink hover:border-leaf-300")}
+      className={cx("inline-flex min-h-11 items-center gap-2 rounded-2xl border px-4 py-2.5 text-left text-[15px] font-medium transition-colors", selected ? "border-brand-500 bg-brand-50 text-brand-800" : "border-line bg-card text-ink hover:border-brand-300")}
     >
       {children}
     </button>
@@ -169,10 +169,10 @@ export function Tabs<T extends string>({ value, onChange, tabs }: { value: T; on
           role="tab"
           aria-selected={value === t.value}
           onClick={() => onChange(t.value)}
-          className={cx("relative whitespace-nowrap px-3 pb-3 pt-2 text-[15px] font-semibold", value === t.value ? "text-leaf-800" : "text-muted hover:text-ink")}
+          className={cx("relative whitespace-nowrap px-3 pb-3 pt-2 text-[15px] font-semibold", value === t.value ? "text-brand-800" : "text-muted hover:text-ink")}
         >
           {t.label}
-          {value === t.value && <motion.span layoutId="tab-underline" className="absolute inset-x-2 -bottom-px h-[3px] rounded-full bg-leaf-600" />}
+          {value === t.value && <motion.span layoutId="tab-underline" className="absolute inset-x-2 -bottom-px h-[3px] rounded-full bg-brand-600" />}
         </button>
       ))}
     </div>
@@ -180,10 +180,10 @@ export function Tabs<T extends string>({ value, onChange, tabs }: { value: T; on
 }
 
 /* ---------------------------------- Progress ---------------------------------- */
-export function ProgressBar({ value, tone = "leaf", label }: { value: number; tone?: "leaf" | "saffron" | "alert" | "amber" | "lagoon"; label?: string }) {
-  const colors = { leaf: "bg-leaf-500", saffron: "bg-saffron-400", alert: "bg-danger", amber: "bg-amber-600", lagoon: "bg-lagoon-500" };
+export function ProgressBar({ value, tone = "brand", label }: { value: number; tone?: "brand" | "accent" | "alert" | "amber" | "learn"; label?: string }) {
+  const colors = { brand: "bg-brand-500", accent: "bg-accent-400", alert: "bg-danger", amber: "bg-amber-600", learn: "bg-learn-500" };
   return (
-    <div className="h-2.5 w-full overflow-hidden rounded-full bg-leaf-50" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(value)} aria-label={label}>
+    <div className="h-2.5 w-full overflow-hidden rounded-full bg-brand-50" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(value)} aria-label={label}>
       <div className={cx("h-full rounded-full transition-[width] duration-700", colors[tone])} style={{ width: `${Math.min(Math.max(value, 0), 100)}%` }} />
     </div>
   );
@@ -220,7 +220,7 @@ export function Sheet({ open, onClose, title, children, wide }: { open: boolean;
           >
             <div className="mb-4 flex items-center justify-between gap-4">
               <h2 className="text-xl font-bold">{title}</h2>
-              <button data-close onClick={onClose} className="grid size-10 place-items-center rounded-full hover:bg-leaf-50" aria-label="Close">
+              <button data-close onClick={onClose} className="grid size-10 place-items-center rounded-full hover:bg-brand-50" aria-label="Close">
                 <X className="size-5" />
               </button>
             </div>
@@ -247,7 +247,7 @@ export function EmptyState({ icon, title, body, action }: { icon: ReactNode; tit
 }
 
 export function Skeleton({ className }: { className?: string }) {
-  return <div className={cx("animate-pulse rounded-2xl bg-leaf-50", className)} aria-hidden />;
+  return <div className={cx("animate-pulse rounded-2xl bg-brand-50", className)} aria-hidden />;
 }
 
 export function ErrorState({ message, onRetry, retryLabel }: { message: string; onRetry?: () => void; retryLabel: string }) {
@@ -323,7 +323,7 @@ export function Section({ title, action, children, className }: { title?: string
   );
 }
 
-export function Card({ children, className, tone = "white" }: { children: ReactNode; className?: string; tone?: "white" | "leaf" | "lagoon" | "saffron" | "alert" | "amber" }) {
-  const tones = { white: "bg-card border border-line", leaf: "bg-leaf-50", lagoon: "bg-lagoon-50", saffron: "bg-saffron-100", alert: "bg-alert-50", amber: "bg-amber-50" };
+export function Card({ children, className, tone = "white" }: { children: ReactNode; className?: string; tone?: "white" | "brand" | "learn" | "accent" | "alert" | "amber" }) {
+  const tones = { white: "bg-card border border-line", brand: "bg-brand-50", learn: "bg-learn-50", accent: "bg-accent-100", alert: "bg-alert-50", amber: "bg-amber-50" };
   return <div className={cx("rounded-[var(--radius-card)] p-4", tones[tone], className)}>{children}</div>;
 }

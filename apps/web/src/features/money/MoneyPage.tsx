@@ -48,16 +48,16 @@ function OverviewTab() {
   if (isError || !d) return <ErrorState message={t("common.error")} onRetry={() => refetch()} retryLabel={t("common.retry")} />;
   const nw = d.needsWants;
   const parts = [
-    { k: "needs", v: nw.needsPercent, amount: nw.needs, c: "bg-leaf-600" },
-    { k: "wants", v: nw.wantsPercent, amount: nw.wants, c: "bg-saffron-400" },
-    { k: "savings", v: nw.savingsPercent, amount: nw.savings, c: "bg-lagoon-500" },
+    { k: "needs", v: nw.needsPercent, amount: nw.needs, c: "bg-brand-600" },
+    { k: "wants", v: nw.wantsPercent, amount: nw.wants, c: "bg-accent-400" },
+    { k: "savings", v: nw.savingsPercent, amount: nw.savings, c: "bg-learn-500" },
   ];
   const max = Math.max(...d.byGroup.map((g) => g.total), 1);
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
         <h2 className="text-lg font-bold">{t("money.needsWants")}</h2>
-        <div className="mt-4 flex h-5 overflow-hidden rounded-full bg-leaf-50" aria-hidden>
+        <div className="mt-4 flex h-5 overflow-hidden rounded-full bg-brand-50" aria-hidden>
           {parts.map((p) => (
             <div key={p.k} className={p.c} style={{ width: `${p.v}%` }} />
           ))}
@@ -86,7 +86,7 @@ function OverviewTab() {
                   <span className="font-semibold">{t(`groups.${g.categoryKey}`)}</span>
                   <span className="figure">{money(g.total)}</span>
                 </div>
-                <div className="mt-1.5 h-2.5 rounded-full bg-leaf-50">
+                <div className="mt-1.5 h-2.5 rounded-full bg-brand-50">
                   <div className="h-full rounded-full" style={{ width: `${(g.total / max) * 100}%`, background: GROUP_COLORS[g.categoryKey] }} />
                 </div>
               </li>
@@ -312,8 +312,8 @@ function ImportSheet({ open, onClose }: { open: boolean; onClose: () => void }) 
   return (
     <Sheet open={open} onClose={onClose} title={t("money.importCsv")}>
       <p className="text-sm text-muted">{t("money.importHelp")}</p>
-      <label className="mt-4 flex cursor-pointer flex-col items-center gap-2 rounded-[var(--radius-card)] border-2 border-dashed border-line p-6 text-center hover:border-leaf-300">
-        <Upload className="size-6 text-leaf-600" />
+      <label className="mt-4 flex cursor-pointer flex-col items-center gap-2 rounded-[var(--radius-card)] border-2 border-dashed border-line p-6 text-center hover:border-brand-300">
+        <Upload className="size-6 text-brand-600" />
         <span className="font-semibold">CSV</span>
         <input type="file" accept=".csv,text/csv" className="sr-only" onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])} />
       </label>

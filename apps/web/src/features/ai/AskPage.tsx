@@ -74,8 +74,8 @@ export function AskPage() {
     <div className="mx-auto flex max-w-3xl flex-col">
       <header className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="grid size-12 place-items-center rounded-2xl bg-lagoon-50">
-            <Sparkles className="size-6 text-saffron-400" />
+          <span className="grid size-12 place-items-center rounded-2xl bg-learn-50">
+            <Sparkles className="size-6 text-accent-400" />
           </span>
           <div>
             <h1 className="text-2xl font-bold">{t("ai.title")}</h1>
@@ -90,10 +90,10 @@ export function AskPage() {
       </header>
 
       <p className="mt-4 flex gap-2 rounded-2xl bg-surface p-3 text-sm text-ink-soft">
-        <ShieldCheck className="size-5 shrink-0 text-leaf-600" /> {t("ai.disclaimer")}
+        <ShieldCheck className="size-5 shrink-0 text-brand-600" /> {t("ai.disclaimer")}
       </p>
       {me && !me.consents.aiDataAccess && (
-        <Link to="/profile/privacy" className="mt-2 flex gap-2 rounded-2xl bg-lagoon-50 p-3 text-sm text-lagoon-700">
+        <Link to="/profile/privacy" className="mt-2 flex gap-2 rounded-2xl bg-learn-50 p-3 text-sm text-learn-700">
           <Database className="size-5 shrink-0" /> {t("ai.personalOff")}
         </Link>
       )}
@@ -102,7 +102,7 @@ export function AskPage() {
         {msgs.length === 0 && (
           <div className="flex flex-wrap gap-2">
             {suggestions.map((s) => (
-              <button key={s} onClick={() => ask(t(`ai.suggestions.${s}`))} className="rounded-full border border-line bg-card px-4 py-2.5 text-left text-sm font-medium hover:border-leaf-300">
+              <button key={s} onClick={() => ask(t(`ai.suggestions.${s}`))} className="rounded-full border border-line bg-card px-4 py-2.5 text-left text-sm font-medium hover:border-brand-300">
                 {t(`ai.suggestions.${s}`)}
               </button>
             ))}
@@ -110,7 +110,7 @@ export function AskPage() {
         )}
         {msgs.map((m, i) =>
           m.role === "user" ? (
-            <div key={i} className="max-w-[85%] self-end rounded-[22px] rounded-br-md bg-leaf-600 px-4 py-3 text-white">
+            <div key={i} className="max-w-[85%] self-end rounded-[22px] rounded-br-md bg-brand-600 px-4 py-3 text-white">
               {m.content}
             </div>
           ) : (
@@ -126,7 +126,7 @@ export function AskPage() {
                     {t("common.sources")}:{" "}
                     {m.answer.sources.map((s, k) => (
                       <span key={s.url}>
-                        <a href={s.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 font-semibold text-leaf-800 hover:underline">
+                        <a href={s.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 font-semibold text-brand-800 hover:underline">
                           {s.name} <ExternalLink className="size-3" />
                         </a>
                         {k < m.answer!.sources.length - 1 ? ", " : ""}
@@ -138,12 +138,12 @@ export function AskPage() {
                 {m.answer && (m.answer.actions.length > 0 || m.answer.relatedLesson) && (
                   <div className="mt-3 flex flex-wrap gap-2">
                     {m.answer.actions.map((a) => (
-                      <button key={a} onClick={() => action(a)} className="rounded-full bg-leaf-50 px-3 py-1.5 text-sm font-semibold text-leaf-800">
+                      <button key={a} onClick={() => action(a)} className="rounded-full bg-brand-50 px-3 py-1.5 text-sm font-semibold text-brand-800">
                         {t(`ai.actions.${a}`)}
                       </button>
                     ))}
                     {m.answer.relatedLesson && !m.answer.actions.includes("learnBudget") && (
-                      <Link to={`/learn/lesson/${m.answer.relatedLesson}`} className="rounded-full bg-lagoon-50 px-3 py-1.5 text-sm font-semibold text-lagoon-700">
+                      <Link to={`/learn/lesson/${m.answer.relatedLesson}`} className="rounded-full bg-learn-50 px-3 py-1.5 text-sm font-semibold text-learn-700">
                         📚 {t("learn.start")}
                       </Link>
                     )}
@@ -157,7 +157,7 @@ export function AskPage() {
         {busy && (
           <div className="flex gap-1.5 self-start rounded-full bg-card px-4 py-3" aria-label={t("common.loading")}>
             {[0, 1, 2].map((d) => (
-              <span key={d} className="size-2 animate-bounce rounded-full bg-leaf-300" style={{ animationDelay: `${d * 120}ms` }} />
+              <span key={d} className="size-2 animate-bounce rounded-full bg-brand-300" style={{ animationDelay: `${d * 120}ms` }} />
             ))}
           </div>
         )}
@@ -173,7 +173,7 @@ export function AskPage() {
           {t("ai.placeholder")}
         </label>
         <input id="ask" value={input} onChange={(e) => setInput(e.target.value)} placeholder={listening ? t("ai.listening") : t("ai.placeholder")} maxLength={1000} className="h-11 min-w-0 flex-1 bg-transparent px-1 focus:outline-none" autoComplete="off" />
-        <button type="submit" disabled={!input.trim() || busy} className="grid size-11 shrink-0 place-items-center rounded-full bg-leaf-600 text-white disabled:bg-leaf-300" aria-label={t("ai.send")}>
+        <button type="submit" disabled={!input.trim() || busy} className="grid size-11 shrink-0 place-items-center rounded-full bg-brand-600 text-white disabled:bg-brand-300" aria-label={t("ai.send")}>
           <Send className="size-5" />
         </button>
       </form>

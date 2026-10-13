@@ -14,20 +14,21 @@ import { PetalScore } from "@/components/brand";
 import { Button, ErrorState, ProgressBar, Section, Skeleton } from "@/components/ui";
 import { cx } from "@/lib/util";
 
+// Colour follows the category, never its rank (see --color-series-* in index.css).
 const GROUP_COLORS: Record<string, string> = {
-  food: "#13895F",
-  transport: "#2E5FA8",
-  housing: "var(--color-leaf-800)",
-  utilities: "#F2B705",
-  education: "#6B46C1",
-  healthcare: "#B42318",
-  entertainment: "#D53F8C",
-  shopping: "#ED8936",
-  loans: "var(--color-ink-soft)",
-  insurance: "#2C7A7B",
-  subscriptions: "#B83280",
-  family: "#7BC4A4",
-  other: "#A0AEC0",
+  food: "var(--color-series-1)",
+  transport: "var(--color-series-2)",
+  housing: "var(--color-series-3)",
+  utilities: "var(--color-series-4)",
+  entertainment: "var(--color-series-5)",
+  shopping: "var(--color-series-6)",
+  education: "var(--color-series-7)",
+  healthcare: "var(--color-series-8)",
+  loans: "var(--color-series-other)",
+  insurance: "var(--color-series-other)",
+  subscriptions: "var(--color-series-other)",
+  family: "var(--color-series-other)",
+  other: "var(--color-series-other)",
 };
 
 export function TransactionRow({ tx, onClick }: { tx: TransactionDTO; onClick?: () => void }) {
@@ -46,7 +47,7 @@ export function TransactionRow({ tx, onClick }: { tx: TransactionDTO; onClick?: 
           {tx.needWant && tx.type === "expense" ? ` · ${t(`needWant.${tx.needWant}`)}` : ""}
         </span>
       </span>
-      <span className={cx("figure shrink-0 font-semibold", tx.type === "income" ? "text-leaf-600" : "text-ink")}>
+      <span className={cx("figure shrink-0 font-semibold", tx.type === "income" ? "text-brand-600" : "text-ink")}>
         {tx.type === "income" ? "+" : "−"}
         {money(tx.amount).replace("-", "")}
       </span>
@@ -65,7 +66,7 @@ function SpendingDonut({ d }: { d: DashboardDTO }) {
           <PieChart>
             <Pie data={data} dataKey="value" nameKey="name" innerRadius={62} outerRadius={94} paddingAngle={2} strokeWidth={0} isAnimationActive={false}>
               {data.map((e) => (
-                <Cell key={e.key} fill={GROUP_COLORS[e.key] ?? "#A0AEC0"} />
+                <Cell key={e.key} fill={GROUP_COLORS[e.key] ?? "var(--color-series-other)"} />
               ))}
             </Pie>
             <Tooltip formatter={(v) => money(Number(v))} />
@@ -126,7 +127,7 @@ export function HomePage() {
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.35fr_1fr]">
         <div className="flex min-w-0 flex-col gap-6">
           {/* Financial health: the signature element */}
-          <Link to="/health" className="group relative flex flex-col items-center gap-5 overflow-hidden rounded-[var(--radius-panel)] bg-leaf-600 p-6 text-white sm:flex-row sm:items-center sm:gap-8">
+          <Link to="/health" className="group relative flex flex-col items-center gap-5 overflow-hidden rounded-[var(--radius-panel)] bg-brand-600 p-6 text-white sm:flex-row sm:items-center sm:gap-8">
             <PetalScore score={d.health.score} band={d.health.band} factors={d.health.factors} size={176} onDark />
             <div className="flex-1 text-center sm:text-left">
               <p className="text-sm font-semibold text-white/75">{t("home.healthScore")}</p>
@@ -135,7 +136,7 @@ export function HomePage() {
                 <p className="mt-1 inline-flex rounded-full bg-white/15 px-3 py-1 text-sm font-semibold">{t("home.scoreChange", { change: `${change > 0 ? "+" : ""}${change}` })}</p>
               )}
               <p className="mt-3 text-white/90">{t(`health.bandMessages.${d.health.band}`)}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#FDF1C9] group-hover:underline">
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#FFD9B0] group-hover:underline">
                 {t("health.howCalculated")} <ChevronRight className="size-4" />
               </span>
             </div>
@@ -146,7 +147,7 @@ export function HomePage() {
             {[
               { k: "home.income", v: d.income, c: "text-ink" },
               { k: "home.spent", v: d.spent, c: "text-ink" },
-              { k: "home.saved", v: d.saved, c: "text-leaf-600" },
+              { k: "home.saved", v: d.saved, c: "text-brand-600" },
               { k: "home.remaining", v: d.remaining, c: d.remaining < 0 ? "text-alert-500" : "text-ink" },
             ].map((s, i) => (
               <div key={s.k} className={cx("px-4 py-4", i % 2 === 1 && "border-l border-line", i > 1 && "border-t border-line sm:border-t-0", i === 2 && "sm:border-l")}>
@@ -177,10 +178,10 @@ export function HomePage() {
 
         <div className="flex min-w-0 flex-col gap-6">
           {insight && (
-            <div className="flex gap-3 rounded-[var(--radius-card)] bg-saffron-100 p-5">
-              <Lightbulb className="mt-0.5 size-6 shrink-0 text-saffron-700" aria-hidden />
+            <div className="flex gap-3 rounded-[var(--radius-card)] bg-accent-100 p-5">
+              <Lightbulb className="mt-0.5 size-6 shrink-0 text-accent-700" aria-hidden />
               <div>
-                <p className="text-sm font-semibold text-saffron-700">{t("home.dailyInsight")}</p>
+                <p className="text-sm font-semibold text-accent-700">{t("home.dailyInsight")}</p>
                 <p className="mt-1 font-medium leading-relaxed">{renderInsight(t, money, insight)}</p>
               </div>
             </div>
@@ -189,7 +190,7 @@ export function HomePage() {
           <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
             <div className="flex items-baseline justify-between">
               <h2 className="text-lg font-bold">{t("home.budget")}</h2>
-              <Link to="/money?tab=budget" className="text-sm font-semibold text-leaf-800">
+              <Link to="/money?tab=budget" className="text-sm font-semibold text-brand-800">
                 {d.budget ? t("common.seeAll") : t("home.createBudget")}
               </Link>
             </div>
@@ -197,7 +198,7 @@ export function HomePage() {
               <>
                 <p className="figure mt-3 text-[22px] font-bold">{t("home.budgetOf", { spent: money(d.budget.spent), planned: money(d.budget.planned) })}</p>
                 <div className="mt-3">
-                  <ProgressBar value={(d.budget.spent / Math.max(d.budget.planned, 1)) * 100} tone={d.budget.spent > d.budget.planned ? "alert" : d.budget.spent > d.budget.planned * 0.8 ? "amber" : "leaf"} label={t("home.budget")} />
+                  <ProgressBar value={(d.budget.spent / Math.max(d.budget.planned, 1)) * 100} tone={d.budget.spent > d.budget.planned ? "alert" : d.budget.spent > d.budget.planned * 0.8 ? "amber" : "brand"} label={t("home.budget")} />
                 </div>
                 <ul className="mt-4 flex flex-col gap-2">
                   {d.budget.progress
@@ -219,7 +220,7 @@ export function HomePage() {
           <section className="rounded-[var(--radius-card)] border border-line bg-card p-5">
             <div className="flex items-baseline justify-between">
               <h2 className="text-lg font-bold">{t("home.savingsGoals")}</h2>
-              <Link to="/goals" className="text-sm font-semibold text-leaf-800">
+              <Link to="/goals" className="text-sm font-semibold text-brand-800">
                 {t("common.seeAll")}
               </Link>
             </div>
@@ -249,19 +250,19 @@ export function HomePage() {
           </section>
 
           {nextLesson && (
-            <Link to={`/learn/lesson/${nextLesson.slug}`} className="flex items-center gap-4 rounded-[var(--radius-card)] bg-lagoon-50 p-5">
+            <Link to={`/learn/lesson/${nextLesson.slug}`} className="flex items-center gap-4 rounded-[var(--radius-card)] bg-learn-50 p-5">
               <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-card text-2xl" aria-hidden>
                 {nextLesson.course.icon}
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-sm font-semibold text-lagoon-700">{t("home.continueLearning")}</span>
+                <span className="block text-sm font-semibold text-learn-700">{t("home.continueLearning")}</span>
                 <span className="block font-bold">{pick(nextLesson.title)}</span>
                 <span className="text-sm text-muted">
                   <BookOpen className="mr-1 inline size-4" aria-hidden />
                   {t("common.minutes", { n: nextLesson.minutes })}
                 </span>
               </span>
-              <ChevronRight className="size-5 text-lagoon-700" />
+              <ChevronRight className="size-5 text-learn-700" />
             </Link>
           )}
 
@@ -269,7 +270,7 @@ export function HomePage() {
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold">{t("home.weeklyChallenge")}</h2>
               {learning && learning.streak > 0 && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-saffron-100 px-2.5 py-1 text-sm font-semibold text-saffron-700">
+                <span className="inline-flex items-center gap-1 rounded-full bg-accent-100 px-2.5 py-1 text-sm font-semibold text-accent-700">
                   <Flame className="size-4" /> {t("learn.streak", { n: learning.streak })}
                 </span>
               )}
@@ -279,7 +280,7 @@ export function HomePage() {
             </p>
             {joined ? (
               <div className="mt-3 flex items-center gap-3">
-                <ProgressBar value={(joined.progress / challengeDef.target) * 100} tone="saffron" label={pick(challengeDef.title)} />
+                <ProgressBar value={(joined.progress / challengeDef.target) * 100} tone="accent" label={pick(challengeDef.title)} />
                 <span className="figure whitespace-nowrap text-sm font-semibold">{t("challenges.progress", { current: joined.progress, target: challengeDef.target })}</span>
               </div>
             ) : (
@@ -325,7 +326,7 @@ function RecentTransactions({ d }: { d: DashboardDTO }) {
     <>
       <div className="flex items-baseline justify-between">
         <h2 className="text-lg font-bold">{t("home.recentTransactions")}</h2>
-        <Link to="/money?tab=transactions" className="text-sm font-semibold text-leaf-800">
+        <Link to="/money?tab=transactions" className="text-sm font-semibold text-brand-800">
           {t("common.seeAll")}
         </Link>
       </div>

@@ -93,7 +93,7 @@ export function AddTransactionSheet({ open, onClose, type: initialType }: { open
                 type="button"
                 onClick={() => setCategory(k)}
                 aria-pressed={category === k}
-                className={cx("flex min-h-[76px] flex-col items-center justify-center gap-1 rounded-2xl border px-1 py-2 text-center text-xs font-semibold leading-tight", category === k ? "border-leaf-500 bg-leaf-50 text-leaf-800" : "border-line bg-card")}
+                className={cx("flex min-h-[76px] flex-col items-center justify-center gap-1 rounded-2xl border px-1 py-2 text-center text-xs font-semibold leading-tight", category === k ? "border-brand-500 bg-brand-50 text-brand-800" : "border-line bg-card")}
               >
                 <span className="text-2xl" aria-hidden>
                   {icon(k)}
@@ -116,7 +116,7 @@ export function AddTransactionSheet({ open, onClose, type: initialType }: { open
 
         <TextInput label={t(type === "income" ? "expense.source" : "expense.merchant")} placeholder={t("expense.merchantPlaceholder")} value={merchant} onChange={(e) => setMerchant(e.target.value)} maxLength={80} />
 
-        <button type="button" onClick={() => setMore((m) => !m)} className="flex items-center gap-1 self-start text-sm font-semibold text-leaf-800" aria-expanded={more}>
+        <button type="button" onClick={() => setMore((m) => !m)} className="flex items-center gap-1 self-start text-sm font-semibold text-brand-800" aria-expanded={more}>
           <ChevronDown className={cx("size-4 transition-transform", more && "rotate-180")} /> {t("expense.more")}
         </button>
 

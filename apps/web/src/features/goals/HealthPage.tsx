@@ -24,7 +24,7 @@ export function HealthPage() {
       <div className="grid items-start gap-6 lg:grid-cols-[320px_1fr]">
         <div className="flex flex-col items-center rounded-[var(--radius-panel)] bg-card p-6 text-center shadow-[var(--shadow-lift)]">
           <PetalScore score={h.score} band={h.band} factors={h.factors} size={240} />
-          <p className="mt-3 text-2xl font-bold text-leaf-800">{t(`health.bands.${h.band}`)}</p>
+          <p className="mt-3 text-2xl font-bold text-brand-800">{t(`health.bands.${h.band}`)}</p>
           <p className="mt-2 text-ink-soft">{t(`health.bandMessages.${h.band}`)}</p>
           <div className="mt-4 flex w-full gap-1 text-xs" aria-hidden>
             {[
@@ -33,12 +33,12 @@ export function HealthPage() {
               ["good", "60–79"],
               ["strong", "80–100"],
             ].map(([b, r]) => (
-              <div key={b} className={cx("flex-1 rounded-lg px-1 py-1.5", b === h.band ? "bg-leaf-600 font-semibold text-white" : "bg-surface text-muted")}>
+              <div key={b} className={cx("flex-1 rounded-lg px-1 py-1.5", b === h.band ? "bg-brand-600 font-semibold text-white" : "bg-surface text-muted")}>
                 {r}
               </div>
             ))}
           </div>
-          <p className="mt-5 flex gap-2 rounded-2xl bg-lagoon-50 p-3 text-left text-sm text-lagoon-700">
+          <p className="mt-5 flex gap-2 rounded-2xl bg-learn-50 p-3 text-left text-sm text-learn-700">
             <Info className="mt-0.5 size-4 shrink-0" /> {t("health.notCredit")}
           </p>
         </div>
@@ -70,7 +70,7 @@ export function HealthPage() {
               <ul className="flex flex-col gap-2">
                 {tips.slice(0, 4).map((f) => (
                   <li key={f.key}>
-                    <Link to={FACTOR_LINK[f.key] ?? "/"} className="flex items-center justify-between gap-3 rounded-2xl bg-leaf-50 p-4 font-medium text-leaf-800">
+                    <Link to={FACTOR_LINK[f.key] ?? "/"} className="flex items-center justify-between gap-3 rounded-2xl bg-brand-50 p-4 font-medium text-brand-800">
                       {t(f.tipKey!)}
                       <span className="figure shrink-0 text-sm">+{f.max - f.score}</span>
                     </Link>
@@ -89,7 +89,7 @@ export function HealthPage() {
                     <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
                     <YAxis domain={[0, 100]} tickLine={false} axisLine={false} fontSize={12} width={28} />
                     <Tooltip />
-                    <Line type="monotone" dataKey="score" stroke="var(--color-leaf-600)" strokeWidth={3} dot={{ r: 4, fill: "var(--color-leaf-600)" }} />
+                    <Line type="monotone" dataKey="score" stroke="var(--color-brand-600)" strokeWidth={3} dot={{ r: 4, fill: "var(--color-brand-600)" }} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>

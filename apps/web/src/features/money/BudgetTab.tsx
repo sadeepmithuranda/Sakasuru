@@ -60,10 +60,10 @@ export function BudgetTab() {
                 {icon(p.categoryKey)}
               </span>
               <span className="flex-1 font-semibold">{t(`categories.${p.categoryKey}`)}</span>
-              <span className={cx("rounded-full px-2.5 py-1 text-xs font-semibold", p.status === "over" ? "bg-alert-50 text-alert-500" : p.status === "near" ? "bg-amber-50 text-amber-600" : "bg-leaf-50 text-leaf-800")}>{t(`budget.status.${p.status}`)}</span>
+              <span className={cx("rounded-full px-2.5 py-1 text-xs font-semibold", p.status === "over" ? "bg-alert-50 text-alert-500" : p.status === "near" ? "bg-amber-50 text-amber-600" : "bg-brand-50 text-brand-800")}>{t(`budget.status.${p.status}`)}</span>
             </div>
             <div className="mt-3">
-              <ProgressBar value={p.percentUsed} tone={p.status === "over" ? "alert" : p.status === "near" ? "amber" : "leaf"} label={t(`categories.${p.categoryKey}`)} />
+              <ProgressBar value={p.percentUsed} tone={p.status === "over" ? "alert" : p.status === "near" ? "amber" : "brand"} label={t(`categories.${p.categoryKey}`)} />
             </div>
             <div className="figure mt-2 flex justify-between text-sm text-muted">
               <span>
@@ -97,7 +97,7 @@ function BudgetEditor({ month, onDone }: { month: string; onDone: () => void }) 
     <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
       <div className="flex flex-col gap-4">
         <MoneyInput label={t("budget.income")} value={income} onChange={setIncome} big />
-        <p className="rounded-2xl bg-saffron-100 p-3 text-sm text-saffron-700">{t("budget.suggestion")}</p>
+        <p className="rounded-2xl bg-accent-100 p-3 text-sm text-accent-700">{t("budget.suggestion")}</p>
         <div className="grid gap-3 sm:grid-cols-2">
           {BUDGET_KEYS.map((k) => (
             <MoneyInput key={k} label={`${icon(k)} ${t(`categories.${k}`)}`} value={values[k] ?? ""} onChange={(v) => setValues({ ...values, [k]: v })} />
@@ -119,7 +119,7 @@ function BudgetEditor({ month, onDone }: { month: string; onDone: () => void }) 
           ))}
           <div className="flex justify-between border-t border-line pt-3">
             <dt className="font-semibold">{t("budget.savingsRate")}</dt>
-            <dd className="figure text-xl font-bold text-leaf-600">{summary.savingsRate}%</dd>
+            <dd className="figure text-xl font-bold text-brand-600">{summary.savingsRate}%</dd>
           </div>
         </dl>
         {summary.remaining < 0 && <p className="mt-3 text-sm text-alert-500">{t("budget.overWarning", { amount: money(-summary.remaining) })}</p>}

@@ -13,11 +13,11 @@ import { Button, ErrorState, ProgressBar, Skeleton } from "@/components/ui";
 import { cx } from "@/lib/util";
 
 const CARD_STYLE: Record<LessonCard["type"], { bg: string; icon: typeof BookOpen; tone: string }> = {
-  story: { bg: "bg-card", icon: BookOpen, tone: "text-lagoon-700" },
-  concept: { bg: "bg-leaf-50", icon: Lightbulb, tone: "text-leaf-800" },
-  example: { bg: "bg-card", icon: Sparkles, tone: "text-saffron-700" },
-  question: { bg: "bg-lagoon-50", icon: Sparkles, tone: "text-lagoon-700" },
-  tip: { bg: "bg-saffron-100", icon: Lightbulb, tone: "text-saffron-700" },
+  story: { bg: "bg-card", icon: BookOpen, tone: "text-learn-700" },
+  concept: { bg: "bg-brand-50", icon: Lightbulb, tone: "text-brand-800" },
+  example: { bg: "bg-card", icon: Sparkles, tone: "text-accent-700" },
+  question: { bg: "bg-learn-50", icon: Sparkles, tone: "text-learn-700" },
+  tip: { bg: "bg-accent-100", icon: Lightbulb, tone: "text-accent-700" },
   warning: { bg: "bg-alert-50", icon: AlertTriangle, tone: "text-alert-500" },
 };
 
@@ -29,14 +29,14 @@ function OptionButton({ label, state, onClick, disabled }: { label: string; stat
       aria-pressed={state === "selected"}
       className={cx(
         "flex w-full items-center gap-3 rounded-2xl border-2 px-4 py-3.5 text-left font-medium transition-colors",
-        state === "idle" && "border-line bg-card hover:border-leaf-300",
-        state === "selected" && "border-lagoon-500 bg-lagoon-50",
-        state === "correct" && "border-leaf-500 bg-leaf-50",
+        state === "idle" && "border-line bg-card hover:border-brand-300",
+        state === "selected" && "border-learn-500 bg-learn-50",
+        state === "correct" && "border-brand-500 bg-brand-50",
         state === "wrong" && "border-alert-500 bg-alert-50",
       )}
     >
       <span className="flex-1">{label}</span>
-      {state === "correct" && <CheckCircle2 className="size-5 text-leaf-600" aria-label="correct" />}
+      {state === "correct" && <CheckCircle2 className="size-5 text-brand-600" aria-label="correct" />}
       {state === "wrong" && <XCircle className="size-5 text-alert-500" aria-label="incorrect" />}
     </button>
   );
@@ -83,7 +83,7 @@ export function LessonPage() {
   return (
     <div className="mx-auto max-w-xl">
       <div className="flex items-center gap-3">
-        <button onClick={() => nav(`/learn/${lesson.courseSlug}`)} className="grid size-10 place-items-center rounded-full hover:bg-leaf-50" aria-label={t("common.close")}>
+        <button onClick={() => nav(`/learn/${lesson.courseSlug}`)} className="grid size-10 place-items-center rounded-full hover:bg-brand-50" aria-label={t("common.close")}>
           <X className="size-5" />
         </button>
         <ProgressBar value={(position / total) * 100} label={pick(lesson.title)} />
@@ -117,7 +117,7 @@ export function LessonPage() {
                   <p>
                     {t("common.sources")}:{" "}
                     {lesson.sources.map((s, k) => (
-                      <a key={s.url} href={s.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 font-semibold text-leaf-800 underline-offset-2 hover:underline">
+                      <a key={s.url} href={s.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 font-semibold text-brand-800 underline-offset-2 hover:underline">
                         {s.name}
                         <ExternalLink className="size-3" />
                         {k < lesson.sources.length - 1 ? ", " : ""}
@@ -153,7 +153,7 @@ export function LessonPage() {
           const correct = checked && picked === q.correctId;
           return (
             <motion.section key={`q${i}`} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.22 }} className="mt-4">
-              <p className="text-sm font-semibold text-lagoon-700">{t("learn.question", { n: i + 1, total: lesson.quiz.length })}</p>
+              <p className="text-sm font-semibold text-learn-700">{t("learn.question", { n: i + 1, total: lesson.quiz.length })}</p>
               <h2 className="mt-2 text-2xl font-bold leading-snug">{pick(q.prompt)}</h2>
               <div className="mt-5 flex flex-col gap-2">
                 {q.options.map((o) => (
@@ -161,8 +161,8 @@ export function LessonPage() {
                 ))}
               </div>
               {checked && (
-                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={cx("mt-4 rounded-2xl p-4", correct ? "bg-leaf-50" : "bg-amber-50")} role="status">
-                  <p className={cx("font-bold", correct ? "text-leaf-800" : "text-amber-600")}>{correct ? t("learn.correct") : t("learn.incorrect")}</p>
+                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={cx("mt-4 rounded-2xl p-4", correct ? "bg-brand-50" : "bg-amber-50")} role="status">
+                  <p className={cx("font-bold", correct ? "text-brand-800" : "text-amber-600")}>{correct ? t("learn.correct") : t("learn.incorrect")}</p>
                   <p className="mt-1 text-ink-soft">{pick(q.explanation)}</p>
                 </motion.div>
               )}
@@ -183,13 +183,13 @@ export function LessonPage() {
 
         {phase === "result" && result && (
           <motion.section key="result" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} className="mt-8 text-center">
-            <div className="mx-auto grid size-24 place-items-center rounded-full bg-saffron-100 text-5xl">🎉</div>
+            <div className="mx-auto grid size-24 place-items-center rounded-full bg-accent-100 text-5xl">🎉</div>
             <h2 className="mt-4 text-[28px] font-bold">{t("learn.resultTitle")}</h2>
             <p className="mt-1 text-lg text-ink-soft">{t("learn.resultScore", { correct: result.correct, total: result.total })}</p>
-            {result.xpEarned > 0 && <p className="figure mt-3 inline-flex rounded-full bg-saffron-400 px-4 py-1.5 text-lg font-bold text-ink">{t("learn.xpEarned", { n: result.xpEarned })}</p>}
+            {result.xpEarned > 0 && <p className="figure mt-3 inline-flex rounded-full bg-accent-400 px-4 py-1.5 text-lg font-bold text-on-accent">{t("learn.xpEarned", { n: result.xpEarned })}</p>}
             {result.newBadges.length > 0 && (
-              <div className="mt-6 rounded-[var(--radius-card)] border border-saffron-400 bg-saffron-100 p-5">
-                <p className="font-bold text-saffron-700">{t("learn.newBadge")}</p>
+              <div className="mt-6 rounded-[var(--radius-card)] border border-accent-400 bg-accent-100 p-5">
+                <p className="font-bold text-accent-700">{t("learn.newBadge")}</p>
                 <div className="mt-3 flex justify-center gap-6">
                   {result.newBadges.map((b) => (
                     <div key={b}>
@@ -209,7 +209,7 @@ export function LessonPage() {
               <Button variant="quiet" onClick={() => (setPhase("quiz"), setI(0), reset(), setAnswers({}))}>
                 {t("learn.retake")}
               </Button>
-              <Link to={`/learn/${lesson.courseSlug}`} className="font-semibold text-leaf-800">
+              <Link to={`/learn/${lesson.courseSlug}`} className="font-semibold text-brand-800">
                 {t("learn.backToCourse")}
               </Link>
             </div>

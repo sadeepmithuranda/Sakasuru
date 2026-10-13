@@ -24,7 +24,7 @@ export function WelcomePage() {
   };
   return (
     <div className="flex min-h-screen flex-col bg-surface lg:flex-row">
-      <section className="relative flex flex-col justify-between overflow-hidden bg-leaf-600 px-6 pb-10 pt-8 text-white lg:w-1/2 lg:px-14 lg:py-14">
+      <section className="relative flex flex-col justify-between overflow-hidden bg-brand-600 px-6 pb-10 pt-8 text-white lg:w-1/2 lg:px-14 lg:py-14">
         <div className="flex items-center gap-3">
           <LogoMark size={44} inverted />
           <span className="text-sm font-semibold tracking-wide text-white/80">Sakasuru</span>
@@ -52,7 +52,7 @@ export function WelcomePage() {
           <ul className="mt-6 flex flex-col gap-3">
             {["point1", "point2", "point3"].map((p) => (
               <li key={p} className="flex items-start gap-3">
-                <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-leaf-100 text-leaf-800">
+                <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-brand-100 text-brand-800">
                   <Check className="size-4" />
                 </span>
                 <span>{t(`welcome.${p}`)}</span>
@@ -94,13 +94,13 @@ export function LanguagePage() {
             role="radio"
             aria-checked={lang === l.code}
             onClick={() => setLang(l.code)}
-            className={cx("flex items-center justify-between rounded-[var(--radius-card)] border-2 p-5 text-left transition-colors", lang === l.code ? "border-leaf-500 bg-leaf-50" : "border-line bg-card hover:border-leaf-300")}
+            className={cx("flex items-center justify-between rounded-[var(--radius-card)] border-2 p-5 text-left transition-colors", lang === l.code ? "border-brand-500 bg-brand-50" : "border-line bg-card hover:border-brand-300")}
           >
             <span>
               <span className="block text-2xl font-bold">{l.native}</span>
               <span className="mt-1 block text-sm text-muted">{samples[l.code]}</span>
             </span>
-            <span className={cx("grid size-7 place-items-center rounded-full border-2", lang === l.code ? "border-leaf-600 bg-leaf-600 text-white" : "border-line")}>{lang === l.code && <Check className="size-4" />}</span>
+            <span className={cx("grid size-7 place-items-center rounded-full border-2", lang === l.code ? "border-brand-600 bg-brand-600 text-white" : "border-line")}>{lang === l.code && <Check className="size-4" />}</span>
           </button>
         ))}
       </div>
@@ -148,14 +148,14 @@ export function LoginPage() {
         <Button size="lg" type="submit" loading={loading}>
           {t("auth.login")}
         </Button>
-        <button type="button" onClick={() => setShowReset((s) => !s)} className="self-start text-sm font-semibold text-leaf-800">
+        <button type="button" onClick={() => setShowReset((s) => !s)} className="self-start text-sm font-semibold text-brand-800">
           {t("auth.forgot")}
         </button>
-        {showReset && <p className="rounded-xl bg-lagoon-50 p-3 text-sm text-lagoon-700">{t("auth.resetUnavailable")}</p>}
+        {showReset && <p className="rounded-xl bg-learn-50 p-3 text-sm text-learn-700">{t("auth.resetUnavailable")}</p>}
       </form>
       <p className="mt-8 text-center text-sm text-muted">
         {t("auth.noAccount")}{" "}
-        <Link to="/language" className="font-semibold text-leaf-800">
+        <Link to="/language" className="font-semibold text-brand-800">
           {t("auth.register")}
         </Link>
       </p>
@@ -195,7 +195,7 @@ export function RegisterPage() {
         <TextInput label={t("auth.email")} type="email" autoComplete="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
         <TextInput label={t("auth.password")} type="password" autoComplete="new-password" hint={t("auth.passwordHint")} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
         <label className="flex items-start gap-3 text-sm text-ink-soft">
-          <input type="checkbox" checked={form.accept} onChange={(e) => setForm({ ...form, accept: e.target.checked })} className="mt-1 size-5 accent-leaf-600" />
+          <input type="checkbox" checked={form.accept} onChange={(e) => setForm({ ...form, accept: e.target.checked })} className="mt-1 size-5 accent-brand-600" />
           {t("auth.consentTerms")}
         </label>
         <p className="text-sm text-muted">{t("onboarding.privacyNote")}</p>
@@ -210,7 +210,7 @@ export function RegisterPage() {
       </form>
       <p className="mt-8 text-center text-sm text-muted">
         {t("auth.haveAccount")}{" "}
-        <Link to="/login" className="font-semibold text-leaf-800">
+        <Link to="/login" className="font-semibold text-brand-800">
           {t("auth.login")}
         </Link>
       </p>

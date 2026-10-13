@@ -43,7 +43,7 @@ export function ToolsPage() {
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {TOOLS.map((tool) => (
           <li key={tool.id}>
-            <Link to={`/tools/${tool.id}`} className="flex h-full flex-col gap-3 rounded-[var(--radius-card)] border border-line bg-card p-4 hover:border-leaf-300">
+            <Link to={`/tools/${tool.id}`} className="flex h-full flex-col gap-3 rounded-[var(--radius-card)] border border-line bg-card p-4 hover:border-brand-300">
               <span className="text-3xl" aria-hidden>
                 {tool.icon}
               </span>
@@ -64,7 +64,7 @@ function Num({ label, value, onChange, min = 0, max, step = 1, prefix, suffix }:
     <label className="block">
       <span className="flex items-center justify-between gap-3">
         <span className="text-sm font-semibold text-ink-soft">{label}</span>
-        <span className="flex items-center gap-1 rounded-xl border border-line bg-card px-2.5 focus-within:border-leaf-500">
+        <span className="flex items-center gap-1 rounded-xl border border-line bg-card px-2.5 focus-within:border-brand-500">
           {prefix && <span className="text-sm text-muted">{prefix}</span>}
           <input
             type="number"
@@ -88,9 +88,9 @@ function Results({ items, children, note }: { items: { label: string; value: str
     <section className="rounded-[var(--radius-panel)] bg-card p-5 shadow-[var(--shadow-lift)] lg:sticky lg:top-20">
       <dl className="flex flex-col gap-3">
         {items.map((it) => (
-          <div key={it.label} className={cx("flex items-baseline justify-between gap-3", it.strong && "rounded-2xl bg-leaf-50 p-3")}>
-            <dt className={cx("text-sm", it.strong ? "font-semibold text-leaf-800" : "text-muted")}>{it.label}</dt>
-            <dd className={cx("figure text-right font-bold", it.strong ? "text-2xl text-leaf-800" : "text-lg")}>{it.value}</dd>
+          <div key={it.label} className={cx("flex items-baseline justify-between gap-3", it.strong && "rounded-2xl bg-brand-50 p-3")}>
+            <dt className={cx("text-sm", it.strong ? "font-semibold text-brand-800" : "text-muted")}>{it.label}</dt>
+            <dd className={cx("figure text-right font-bold", it.strong ? "text-2xl text-brand-800" : "text-lg")}>{it.value}</dd>
           </div>
         ))}
       </dl>
@@ -114,8 +114,8 @@ function GrowthChart({ data, keys }: { data: Record<string, number>[]; keys: { k
           <XAxis dataKey="year" tickLine={false} axisLine={false} fontSize={12} />
           <YAxis tickFormatter={(v) => money(v, { compact: true }).replace(/^\S+\s/, "")} tickLine={false} axisLine={false} fontSize={11} width={44} />
           <Tooltip formatter={(v) => money(Number(v))} />
-          {keys.map((k) => (
-            <Area key={k.k} type="monotone" dataKey={k.k} name={k.label} stroke={k.color} fill={k.color} fillOpacity={0.18} strokeWidth={2.5} />
+          {keys.map((k, i) => (
+            <Area key={k.k} type="monotone" dataKey={k.k} name={k.label} stroke={k.color} fill={k.color} fillOpacity={i === 0 ? 0.16 : 0} strokeWidth={2.5} />
           ))}
         </AreaChart>
       </ResponsiveContainer>
@@ -156,7 +156,7 @@ export function CalculatorPage() {
             <Num key="d" label={F("years")} value={n("years", 10)} onChange={set("years")} min={1} max={40} />,
           ],
           results: [{ label: R("finalBalance"), value: money(r.finalBalance), strong: true }, { label: R("contributed"), value: money(r.totalContributed) }, { label: R("interestEarned"), value: money(r.totalInterest) }],
-          chart: <GrowthChart data={r.yearly.map((y) => ({ year: y.year, contributed: y.contributed, balance: y.balance }))} keys={[{ k: "balance", color: "var(--color-leaf-500)", label: R("finalBalance") }, { k: "contributed", color: "var(--color-lagoon-500)", label: R("contributed") }]} />,
+          chart: <GrowthChart data={r.yearly.map((y) => ({ year: y.year, contributed: y.contributed, balance: y.balance }))} keys={[{ k: "balance", color: "var(--color-series-1)", label: R("finalBalance") }, { k: "contributed", color: "var(--color-series-2)", label: R("contributed") }]} />,
           note: id === "investment" ? t("common.educationOnly") : t("tools.ratesNote"),
         };
       }
@@ -212,7 +212,7 @@ export function CalculatorPage() {
             { label: R("futureCost"), value: money(r.futureCost), strong: true },
             { label: R("purchasingPower"), value: money(r.purchasingPowerOfToday) },
           ],
-          chart: <GrowthChart data={r.points.map((p) => ({ year: p.year, cost: p.cost }))} keys={[{ k: "cost", color: "var(--color-amber-600)", label: R("futureCost") }]} />,
+          chart: <GrowthChart data={r.points.map((p) => ({ year: p.year, cost: p.cost }))} keys={[{ k: "cost", color: "var(--color-series-2)", label: R("futureCost") }]} />,
           note: t("tools.inflationNote"),
         };
       }
@@ -228,7 +228,7 @@ export function CalculatorPage() {
             <Num key="f" label={F("inflation")} value={n("infl", 5)} onChange={set("infl")} max={20} step={0.25} suffix="%" />,
           ],
           results: [{ label: R("nominal"), value: money(r.nominalValue), strong: true }, { label: R("real"), value: money(r.valueInTodaysRupees) }],
-          chart: <GrowthChart data={r.yearly.map((y) => ({ year: y.year, balance: y.balance }))} keys={[{ k: "balance", color: "var(--color-leaf-500)", label: R("nominal") }]} />,
+          chart: <GrowthChart data={r.yearly.map((y) => ({ year: y.year, balance: y.balance }))} keys={[{ k: "balance", color: "var(--color-series-1)", label: R("nominal") }]} />,
           note: t("common.educationOnly"),
         };
       }
@@ -277,8 +277,8 @@ export function CalculatorPage() {
   const b = body as { inputs: ReactNode[]; results: { label: string; value: string; strong?: boolean }[]; chart?: ReactNode; note?: string; banner?: string };
   return (
     <div>
-      <PageHeader title={t(`tools.${id}`)} back={<Link to="/tools" className="mb-2 inline-block text-sm font-semibold text-leaf-800">← {t("tools.title")}</Link>} />
-      {b.banner && <p className="mb-5 rounded-2xl bg-saffron-100 p-4 text-lg font-bold text-saffron-700">{b.banner}</p>}
+      <PageHeader title={t(`tools.${id}`)} back={<Link to="/tools" className="mb-2 inline-block text-sm font-semibold text-brand-800">← {t("tools.title")}</Link>} />
+      {b.banner && <p className="mb-5 rounded-2xl bg-accent-100 p-4 text-lg font-bold text-accent-700">{b.banner}</p>}
       <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
         <div className="flex flex-col gap-6 rounded-[var(--radius-card)] border border-line bg-card p-5">{b.inputs}</div>
         <Results items={b.results} note={b.note}>

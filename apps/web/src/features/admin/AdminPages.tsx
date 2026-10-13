@@ -11,7 +11,7 @@ import { Button, EmptyState, PageHeader, SelectInput, Skeleton, TextInput, Toggl
 import { cx } from "@/lib/util";
 
 const RANK: Record<RoleName, number> = { user: 0, creator: 1, reviewer: 2, moderator: 3, admin: 4, superadmin: 5 };
-const STATUS_STYLE: Record<ContentStatus, string> = { draft: "bg-surface text-ink-soft", review: "bg-lagoon-50 text-lagoon-700", approved: "bg-saffron-100 text-saffron-700", published: "bg-leaf-50 text-leaf-800", archived: "bg-line text-muted" };
+const STATUS_STYLE: Record<ContentStatus, string> = { draft: "bg-surface text-ink-soft", review: "bg-learn-50 text-learn-700", approved: "bg-accent-100 text-accent-700", published: "bg-brand-50 text-brand-800", archived: "bg-line text-muted" };
 
 export function AdminLayout() {
   const { t } = useI18n();
@@ -42,7 +42,7 @@ export function AdminDashboard() {
   const { t, pick } = useI18n();
   const { me } = useSession();
   const { data: s, isLoading, isError } = useQuery({ queryKey: ["admin-stats"], queryFn: () => api.adminStats(), enabled: !!me && RANK[me.user.role] >= 3 });
-  if (me && RANK[me.user.role] < 3) return <Link to="/admin/content" className="font-semibold text-leaf-800">{t("admin.content")} →</Link>;
+  if (me && RANK[me.user.role] < 3) return <Link to="/admin/content" className="font-semibold text-brand-800">{t("admin.content")} →</Link>;
   if (isLoading) return <Skeleton className="h-96" />;
   if (isError || !s) return <EmptyState icon="🔒" title={t("admin.forbidden")} />;
   const lessonTitle = (slug: string) => {
@@ -51,7 +51,7 @@ export function AdminDashboard() {
   };
   return (
     <div>
-      <p className="mb-4 flex gap-2 rounded-2xl bg-lagoon-50 p-3 text-sm text-lagoon-700">
+      <p className="mb-4 flex gap-2 rounded-2xl bg-learn-50 p-3 text-sm text-learn-700">
         <ShieldCheck className="size-5 shrink-0" /> {t("admin.privacyNote")}
       </p>
       <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-3 lg:grid-cols-6">
@@ -79,7 +79,7 @@ export function AdminDashboard() {
                 <XAxis dataKey="day" tickFormatter={(d) => String(d).slice(5)} fontSize={11} tickLine={false} axisLine={false} />
                 <YAxis allowDecimals={false} fontSize={11} width={24} tickLine={false} axisLine={false} />
                 <Tooltip />
-                <Bar dataKey="count" fill="var(--color-leaf-500)" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="count" fill="var(--color-brand-500)" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -93,8 +93,8 @@ export function AdminDashboard() {
                   <span className="font-semibold">{t(`language.${l.lang}`)}</span>
                   <span>{l.count}</span>
                 </div>
-                <div className="mt-1 h-2.5 rounded-full bg-leaf-50">
-                  <div className="h-full rounded-full bg-lagoon-500" style={{ width: `${(l.count / Math.max(s.users, 1)) * 100}%` }} />
+                <div className="mt-1 h-2.5 rounded-full bg-brand-50">
+                  <div className="h-full rounded-full bg-learn-500" style={{ width: `${(l.count / Math.max(s.users, 1)) * 100}%` }} />
                 </div>
               </li>
             ))}
@@ -140,12 +140,12 @@ export function AdminContent() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2">
           {(["all", "draft", "review", "approved", "published", "archived"] as const).map((s) => (
-            <button key={s} onClick={() => setFilter(s)} className={cx("rounded-full px-3 py-1.5 text-sm font-semibold", filter === s ? "bg-leaf-600 text-white" : "border border-line bg-card")}>
+            <button key={s} onClick={() => setFilter(s)} className={cx("rounded-full px-3 py-1.5 text-sm font-semibold", filter === s ? "bg-brand-600 text-white" : "border border-line bg-card")}>
               {s === "all" ? t("money.filters.all") : t(`admin.status.${s}`)}
             </button>
           ))}
         </div>
-        <Link to="/admin/content/new" className="inline-flex h-10 items-center gap-2 rounded-full bg-leaf-600 px-4 text-sm font-semibold text-white">
+        <Link to="/admin/content/new" className="inline-flex h-10 items-center gap-2 rounded-full bg-brand-600 px-4 text-sm font-semibold text-white">
           <Plus className="size-4" /> {t("admin.newLesson")}
         </Link>
       </div>
@@ -163,7 +163,7 @@ export function AdminContent() {
             {rows.map((r) => (
               <tr key={r.slug} className="hover:bg-surface">
                 <td className="px-4 py-3">
-                  <Link to={`/admin/content/${r.slug}`} className="font-semibold text-leaf-800 hover:underline">
+                  <Link to={`/admin/content/${r.slug}`} className="font-semibold text-brand-800 hover:underline">
                     {pick(r.title)}
                   </Link>
                   <span className="block text-xs text-muted">{r.slug}</span>
@@ -208,9 +208,9 @@ function LField({ label, value, onChange, multiline }: { label: string; value: L
       <div className="grid gap-2 md:grid-cols-3">
         {(["si", "ta", "en"] as const).map((lng) =>
           multiline ? (
-            <textarea key={lng} aria-label={`${label} (${lng})`} placeholder={lng.toUpperCase()} value={value[lng]} onChange={(e) => onChange({ ...value, [lng]: e.target.value })} rows={3} className="rounded-xl border border-line bg-card p-2.5 text-sm focus:border-leaf-500 focus:outline-none" />
+            <textarea key={lng} aria-label={`${label} (${lng})`} placeholder={lng.toUpperCase()} value={value[lng]} onChange={(e) => onChange({ ...value, [lng]: e.target.value })} rows={3} className="rounded-xl border border-line bg-card p-2.5 text-sm focus:border-brand-500 focus:outline-none" />
           ) : (
-            <input key={lng} aria-label={`${label} (${lng})`} placeholder={lng.toUpperCase()} value={value[lng]} onChange={(e) => onChange({ ...value, [lng]: e.target.value })} className="h-10 rounded-xl border border-line bg-card px-2.5 text-sm focus:border-leaf-500 focus:outline-none" />
+            <input key={lng} aria-label={`${label} (${lng})`} placeholder={lng.toUpperCase()} value={value[lng]} onChange={(e) => onChange({ ...value, [lng]: e.target.value })} className="h-10 rounded-xl border border-line bg-card px-2.5 text-sm focus:border-brand-500 focus:outline-none" />
           ),
         )}
       </div>
@@ -318,14 +318,14 @@ export function AdminLessonEditor() {
           <LField label="Prompt" value={q.prompt} onChange={(v) => patchQ(i, { prompt: v })} />
           {q.options.map((o, k) => (
             <div key={o.id} className="flex items-start gap-2">
-              <input type="radio" name={`correct-${q.id}`} checked={q.correctId === o.id} onChange={() => patchQ(i, { correctId: o.id })} className="mt-6 size-5 accent-leaf-600" aria-label={`correct ${o.id}`} />
+              <input type="radio" name={`correct-${q.id}`} checked={q.correctId === o.id} onChange={() => patchQ(i, { correctId: o.id })} className="mt-6 size-5 accent-brand-600" aria-label={`correct ${o.id}`} />
               <div className="flex-1">
                 <LField label={`Option ${o.id}`} value={o.text} onChange={(v) => patchQ(i, { options: q.options.map((x, j) => (j === k ? { ...x, text: v } : x)) })} />
               </div>
             </div>
           ))}
           {q.options.length < 4 && (
-            <button onClick={() => patchQ(i, { options: [...q.options, { id: "abcdef"[q.options.length]!, text: emptyL() }] })} className="self-start text-sm font-semibold text-leaf-800">
+            <button onClick={() => patchQ(i, { options: [...q.options, { id: "abcdef"[q.options.length]!, text: emptyL() }] })} className="self-start text-sm font-semibold text-brand-800">
               + Option
             </button>
           )}

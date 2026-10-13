@@ -17,7 +17,7 @@ import { cx } from "@/lib/util";
 function Row({ to, icon: Icon, label }: { to: string; icon: typeof Shield; label: string }) {
   return (
     <Link to={to} className="flex items-center gap-3 px-4 py-4 hover:bg-surface">
-      <Icon className="size-5 text-leaf-600" aria-hidden />
+      <Icon className="size-5 text-brand-600" aria-hidden />
       <span className="flex-1 font-semibold">{label}</span>
       <ChevronRight className="size-5 text-muted" />
     </Link>
@@ -163,8 +163,8 @@ export function PrivacyPage() {
   };
   return (
     <div className="mx-auto max-w-2xl">
-      <PageHeader title={t("privacy.title")} subtitle={t("privacy.intro")} back={<Link to="/profile" className="mb-2 inline-block text-sm font-semibold text-leaf-800">← {t("profile.title")}</Link>} />
-      <p className="rounded-2xl bg-leaf-50 p-4 font-medium text-leaf-800">{t("privacy.promises")}</p>
+      <PageHeader title={t("privacy.title")} subtitle={t("privacy.intro")} back={<Link to="/profile" className="mb-2 inline-block text-sm font-semibold text-brand-800">← {t("profile.title")}</Link>} />
+      <p className="rounded-2xl bg-brand-50 p-4 font-medium text-brand-800">{t("privacy.promises")}</p>
       <Section title={t("profile.aiPermissions")}>
         <div className="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-card px-5">
           <Toggle checked={me.consents.aiDataAccess} onChange={(v) => setConsent({ aiDataAccess: v })} label={t("privacy.aiAccess")} description={t("privacy.aiAccessBody")} />
@@ -219,7 +219,7 @@ export function SecurityPage() {
   const revoke = useMutation({ mutationFn: api.revokeSession, onSuccess: () => qc.invalidateQueries({ queryKey: ["sessions"] }) });
   return (
     <div className="mx-auto max-w-2xl">
-      <PageHeader title={t("security.title")} back={<Link to="/profile" className="mb-2 inline-block text-sm font-semibold text-leaf-800">← {t("profile.title")}</Link>} />
+      <PageHeader title={t("security.title")} back={<Link to="/profile" className="mb-2 inline-block text-sm font-semibold text-brand-800">← {t("profile.title")}</Link>} />
       <Section title={t("security.changePassword")} className="mt-0">
         <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-line bg-card p-5">
           <TextInput label={t("security.currentPassword")} type="password" autoComplete="current-password" value={cur} onChange={(e) => setCur(e.target.value)} />
@@ -269,8 +269,8 @@ export function NotificationsPage() {
         <ul className="divide-y divide-line overflow-hidden rounded-[var(--radius-card)] border border-line bg-card">
           {data.map((n) => (
             <li key={n.id}>
-              <button onClick={() => !n.read && read.mutate(n.id)} className={cx("flex w-full gap-3 px-4 py-4 text-left", !n.read && "bg-leaf-50/60")}>
-                <span className={cx("mt-2 size-2.5 shrink-0 rounded-full", n.read ? "bg-transparent" : "bg-saffron-400")} aria-hidden />
+              <button onClick={() => !n.read && read.mutate(n.id)} className={cx("flex w-full gap-3 px-4 py-4 text-left", !n.read && "bg-brand-50/60")}>
+                <span className={cx("mt-2 size-2.5 shrink-0 rounded-full", n.read ? "bg-transparent" : "bg-accent-400")} aria-hidden />
                 <span className="flex-1">
                   <span className={cx("block", !n.read && "font-semibold")}>{renderNotification(t, money, n, (k) => (badgeByKey(k) ? pick(badgeByKey(k)!.title) : k))}</span>
                   <span className="text-xs text-muted">{date(n.createdAt)}</span>
@@ -282,7 +282,7 @@ export function NotificationsPage() {
       ) : (
         <EmptyState icon="🔔" title={t("notifications.empty")} />
       )}
-      <Link to="/profile" className="mt-6 inline-block text-sm font-semibold text-leaf-800">
+      <Link to="/profile" className="mt-6 inline-block text-sm font-semibold text-brand-800">
         {t("notifications.preferences")}
       </Link>
     </div>

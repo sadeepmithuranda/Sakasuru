@@ -25,7 +25,7 @@ function LanguageSwitch({ compact }: { compact?: boolean }) {
   };
   return (
     <label className={cx("relative inline-flex items-center gap-1.5 rounded-full border border-line bg-card text-sm font-semibold", compact ? "h-10 px-3" : "h-10 px-3.5")}>
-      <Languages className="size-4 text-leaf-600" aria-hidden />
+      <Languages className="size-4 text-brand-600" aria-hidden />
       <span className="sr-only">{t("profile.language")}</span>
       <select value={lang} onChange={(e) => change(e.target.value as Lang)} className="cursor-pointer appearance-none bg-transparent pr-1 focus:outline-none">
         {LANGUAGES.map((l) => (
@@ -57,7 +57,7 @@ function BellLink() {
   return (
     <Link to="/notifications" className="relative grid size-10 place-items-center rounded-full border border-line bg-card" aria-label={`${t("nav.notifications")}${unread ? ` (${unread})` : ""}`}>
       <Bell className="size-5" />
-      {unread > 0 && <span className="absolute -right-0.5 -top-0.5 grid min-w-5 place-items-center rounded-full bg-saffron-400 px-1 text-[11px] font-bold text-ink">{unread}</span>}
+      {unread > 0 && <span className="absolute -right-0.5 -top-0.5 grid min-w-5 place-items-center rounded-full bg-accent-400 px-1 text-[11px] font-bold text-on-accent">{unread}</span>}
     </Link>
   );
 }
@@ -117,12 +117,12 @@ export function AppShell() {
           <Link to="/" className="px-2">
             <Logo />
           </Link>
-          <button onClick={() => openAdd()} className="mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-leaf-600 font-semibold text-white hover:bg-forest">
+          <button onClick={() => openAdd()} className="mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-brand-600 font-semibold text-white hover:bg-brand-deep">
             <Plus className="size-5" /> {t("nav.addExpense")}
           </button>
           <nav className="mt-6 flex flex-1 flex-col gap-0.5 overflow-y-auto" aria-label="Main">
             {side.map((n) => (
-              <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => cx("flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold", isActive ? "bg-leaf-50 text-leaf-800" : "text-ink-soft hover:bg-surface")}>
+              <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => cx("flex items-center gap-3 rounded-xl px-3 py-2.5 font-semibold", isActive ? "bg-brand-50 text-brand-800" : "text-ink-soft hover:bg-surface")}>
                 <n.icon className="size-5" aria-hidden />
                 {n.label}
               </NavLink>
@@ -133,7 +133,7 @@ export function AppShell() {
 
         <div className="min-w-0 overflow-x-clip">
           {api.mode === "local" && (
-            <div className="bg-lagoon-deep px-4 py-2 text-center text-sm text-white">
+            <div className="bg-learn-deep px-4 py-2 text-center text-sm text-white">
               {t("app.demoBanner")}
             </div>
           )}
@@ -163,9 +163,9 @@ export function AppShell() {
       {!onAsk && (
         <Link
           to="/ask"
-          className="fixed bottom-24 right-4 z-30 flex h-12 items-center gap-2 rounded-full border border-lagoon-500/20 bg-card pl-3.5 pr-4 font-semibold text-lagoon-700 shadow-[var(--shadow-lift)] lg:hidden"
+          className="fixed bottom-24 right-4 z-30 flex h-12 items-center gap-2 rounded-full border border-learn-500/20 bg-card pl-3.5 pr-4 font-semibold text-learn-700 shadow-[var(--shadow-lift)] lg:hidden"
         >
-          <Sparkles className="size-5 text-saffron-400" aria-hidden /> {t("nav.ask")}
+          <Sparkles className="size-5 text-accent-400" aria-hidden /> {t("nav.ask")}
         </Link>
       )}
 
@@ -174,17 +174,17 @@ export function AppShell() {
         <div className="mx-auto grid max-w-lg grid-cols-6 items-end px-1">
           {bottom.map((n, i) =>
             n ? (
-              <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => cx("flex min-h-16 flex-col items-center justify-center gap-0.5 text-[11px] font-semibold", isActive ? "text-leaf-700 text-leaf-800" : "text-muted")}>
+              <NavLink key={n.to} to={n.to} end={n.end} className={({ isActive }) => cx("flex min-h-16 flex-col items-center justify-center gap-0.5 text-[11px] font-semibold", isActive ? "text-brand-700 text-brand-800" : "text-muted")}>
                 {({ isActive }) => (
                   <>
-                    <n.icon className={cx("size-6", isActive && "text-leaf-600")} aria-hidden strokeWidth={isActive ? 2.4 : 1.8} />
+                    <n.icon className={cx("size-6", isActive && "text-brand-600")} aria-hidden strokeWidth={isActive ? 2.4 : 1.8} />
                     <span className="max-w-full truncate px-0.5">{n.label}</span>
                   </>
                 )}
               </NavLink>
             ) : (
               <div key={i} className="flex justify-center">
-                <button onClick={() => openAdd()} className="-mt-6 grid size-15 place-items-center rounded-full bg-leaf-600 text-white shadow-[var(--shadow-lift)] ring-4 ring-surface" aria-label={t("nav.addExpense")}>
+                <button onClick={() => openAdd()} className="-mt-6 grid size-15 place-items-center rounded-full bg-brand-600 text-white shadow-[var(--shadow-lift)] ring-4 ring-surface" aria-label={t("nav.addExpense")}>
                   <Plus className="size-7" />
                 </button>
               </div>

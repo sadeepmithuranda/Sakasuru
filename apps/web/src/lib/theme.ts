@@ -10,7 +10,7 @@ export type ThemeChoice = "light" | "dark" | "system";
 export const THEME_CHOICES: ThemeChoice[] = ["light", "dark", "system"];
 
 const KEY = "sk_theme";
-const META_COLORS = { light: "#0E6B4F", dark: "#0B1310" } as const;
+const META_COLORS = { light: "#1556B8", dark: "#0A1220" } as const;
 const listeners = new Set<() => void>();
 
 function readChoice(): ThemeChoice {
